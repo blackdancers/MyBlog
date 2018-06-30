@@ -1,0 +1,7 @@
+logging:
+  level:
+    root:warn
+    com.github.fish:info
+  file: logs/blog-pro.log
+server:
+  port: 8080
