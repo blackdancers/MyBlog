@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:replace="_fragments :: head(~{:: title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>首页</title>
+    <title>首页11</title>
     <link rel="stylesheet" th:href="@{/css/semantic.min.css}">
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
 
     <!--导航 nav-bar使用semantic-ui组件-->
-    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
         <div class="ui container">
             <div class="ui inverted secondary stackable menu">
                 <h2 class="ui teal header item">Blog</h2>
-                <a href="#" class="active item m-item m-mobile-hide"><i class="mini home icon"></i> 首页</a>
+                <a href="#" class="item m-item m-mobile-hide"><i class="mini home icon"></i> 首页</a>
                 <a href="#" class="item m-item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
                 <a href="#" class="item m-item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
                 <a href="#" class="item m-item m-mobile-hide"><i class="mini clone icon"></i>归档</a>
@@ -395,7 +395,7 @@
     </div>
 
     <!--底部-->
-    <footer class="ui inverted vertical segment m-padded-tb-massive">
+    <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
         <div class="ui center aligned container">
             <div class="ui inverted divided stackable grid">
                 <!--分成16份-->
