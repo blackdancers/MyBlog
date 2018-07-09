@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.fish.blog.core.dao.SystemUserMapper">
+  <resultMap id="BaseResultMap" type="com.github.fish.blog.api.entity.SystemUser">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_type" jdbcType="CHAR" property="userType" />
+    <result column="user_status" jdbcType="CHAR" property="userStatus" />
+    <result column="salt_value" jdbcType="VARCHAR" property="saltValue" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_name, user_account, user_avatar, password, sex, mobile_phone, user_email,
+    user_type, user_status, salt_value, create_date, update_date
+  </sql>
+
+  <select id="getSystemUserByIdentifier" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM system_user
+    WHERE mobile_phone = #{identifier} OR user_account = #{identifier}
+    LIMIT 1
+  </select>
+</mapper>

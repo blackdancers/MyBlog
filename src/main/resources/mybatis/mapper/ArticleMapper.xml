@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.fish.blog.core.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.github.fish.blog.api.entity.Article">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="article_name" jdbcType="VARCHAR" property="articleName" />
+    <result column="article_cover" jdbcType="VARCHAR" property="articleCover" />
+    <result column="article_flag" jdbcType="VARCHAR" property="articleFlag" />
+    <result column="views" jdbcType="INTEGER" property="views" />
+    <result column="appreciation" jdbcType="CHAR" property="appreciation" />
+    <result column="share_statement" jdbcType="CHAR" property="shareStatement" />
+    <result column="is_comment" jdbcType="CHAR" property="isComment" />
+    <result column="is_issue" jdbcType="CHAR" property="isIssue" />
+    <result column="is_recommend" jdbcType="CHAR" property="isRecommend" />
+    <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent" />
+    <result column="class_id" jdbcType="BIGINT" property="classId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, article_name, article_cover, article_flag, views, appreciation, share_statement,
+    is_comment, is_issue, is_recommend,article_content, class_id, user_id, create_date, update_date
+  </sql>
+
+</mapper>

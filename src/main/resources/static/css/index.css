@@ -3,6 +3,10 @@
 body{
     background: url("../images/what-the-hex.png");
 }
+/*body.m-container-login{
+    background-color: #DADADA;
+}*/
+
 
 .m-padded {
     padding: 1em !important;
@@ -118,6 +122,10 @@ body{
 }
 .m-container-small{
     max-width: 60em !important;
+    margin: auto !important;
+}
+.m-container-login{
+    max-width: 30em !important;
     margin: auto !important;
 }
 /*导航阴影*/

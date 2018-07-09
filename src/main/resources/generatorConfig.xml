@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 配置ojdbc所在的目录，本地workspace目录 -->
+	<!-- <classPathEntry location="./mysql-connector-java-5.1.32.jar" /> -->
+	<context id="MySqlTables" defaultModelType="flat" targetRuntime="MyBatis3">
+
+		<!-- 生成的Java文件的编码 -->
+		<property name="javaFileEncoding" value="UTF-8" />
+		<!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表； 一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖 -->
+		<property name="autoDelimitKeywords" value="false" />
+		<!-- 格式化java代码 -->
+		<property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+		<!-- 格式化XML代码 -->
+		<property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
+
+		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+			<property name="mappers" value="tk.mybatis.mapper.common.Mapper" />
+			<!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+			<property name="caseSensitive" value="false" />
+		</plugin>
+		<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
+		<!-- 关闭注解信息 -->
+		<commentGenerator>
+			<!-- 是否去除所有自动生成的注释文件 -->
+			<property name="suppressAllComments" value="false" />
+			<!-- 是否去除所有自动生成的文件的时间戳，默认为false -->
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.100.130:3306/myblog?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;failOverReadOnly=false"
+			userId="root" password="fbmgr@#" />
+
+		<javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+			<!-- 把jdbc中的decimal与numberic类型转化为integer类型 -->
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- model的配置 -->
+		<!-- java模型创建器，是必须要的元素 -->
+		<!-- 数据库表对应的model -->
+		<!-- targetProject的目录配置成本地机器的workspace -->
+		<javaModelGenerator targetPackage="com.github.fish.blog.api.entity" targetProject="E:\\git-local-repo\\code\\MyBlog\\src\\main\\java">
+			<property name="constructoromsd" value="false"/><!--  for MyBatis3/MyBatis3Simple 自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；-->
+			<property name="enableSubPackages" value="true" /><!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+			<property name="trimStrings" value="true" /><!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
+			<!-- 设置一个根对象，如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项
+            	注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括： 1，属性名相同，类型相同，有相同的getter/setter方法；
+         	-->
+			<property name="rootClass" value="com.github.fish.common.entity.AbstractBaseEntity" />
+		</javaModelGenerator>
+
+		<!-- 生成SQL map的XML文件生成器，注意，在Mybatis3之后，我们可以使用mapper.xml文件+Mapper接口（或者不用mapper接口），或者只使用Mapper接口+Annotation，所以，如果 javaClientGenerator配置中配置了需要生成XML的话，这个元素就必须配置 targetPackage/targetProject:同javaModelGenerator -->
+		<!-- 控制Model的xmlMapper文件 -->
+		<sqlMapGenerator targetPackage="mapper" targetProject="E:\\git-local-repo\\code\\MyBlog\\src\\main\\resources\\mybatis">
+			<!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+
+		<!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口
+        targetPackage/targetProject:同javaModelGenerator
+        type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：
+            1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；
+            2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中；
+            3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
+        	注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
+    	-->
+		<javaClientGenerator targetPackage="com.github.fish.blog.core.dao" type="XMLMAPPER" targetProject="E:\\git-local-repo\\code\\MyBlog\\src\\main\\java" />
+
+
+		<!-- schema你的数据库，tableName表明，domainObjectName对应你的javabean类名，是否生成相应的example -->
+		<!-- ignoreColumn 表示忽略哪些列 -->
+		<table schema="myblog" tableName="system_user"
+			enableCountByExample="false" 
+			enableUpdateByExample="false"
+			enableDeleteByExample="false" 
+			enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<!--<generatedKey column="id" sqlStatement="JDBC" identity="true" />-->
+		</table>
+
+	</context>
+	
+	<!-- 该文件只需 修改 targetPackage，tableName即可 -->
+	
+</generatorConfiguration> 
