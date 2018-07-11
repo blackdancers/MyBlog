@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>博客管理列表页</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-    <link rel="stylesheet" href="../../static/css/index.css" th:href="@{/css/index.css}">
+    <link rel="stylesheet" href="/static/css/index.css" th:href="@{/css/index.css}">
 </head>
 <body>
 <!--导航 nav-bar使用semantic-ui组件-->
@@ -54,9 +54,9 @@
 <div class="m-container-small m-padded-tb-big">
     <div class="ui container">
       <!--登录成功，欢迎信息-->
-        <div class="ui success large message">
+        <div class="ui success large message" th:object="${session.systemUser}">
             <h2>Hi,</h2>
-            <p>xxx,欢迎登录!!!</p>
+            <p><span th:text="${session.systemUser.userName}"/>,欢迎登录!!!</p>
         </div>
         <img src="https://picsum.photos/1000/400/?image=1005" alt="" class="ui rounded bordered fluid image">
 

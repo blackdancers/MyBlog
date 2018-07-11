@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("admin")
@@ -25,10 +26,17 @@ public class LoginController {
         return "admin/login";
     }
 
+
+    @GetMapping("logout")
+    public String logout(){
+        return "admin/login";
+    }
+
     @PostMapping("login")
     public String login(@RequestParam String userAccount,
-                            @RequestParam String password,
-                            RedirectAttributes attributes){
+                        @RequestParam String password,
+                        RedirectAttributes attributes,
+                        HttpSession session){
 
         SystemUser user = systemUserService.getSystemUserByIdentifier(userAccount);
         if (null == user) {
@@ -43,8 +51,7 @@ public class LoginController {
         }
 
         //登录信息存放到session中
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        request.getSession().setAttribute("systemUser",systemUser);
+        session.setAttribute("systemUser",systemUser);
         return "admin/index";
     }
 }
