@@ -5,6 +5,7 @@ import com.github.fish.blog.api.entity.SystemUser;
 import com.github.fish.blog.core.dao.SystemUserMapper;
 import com.github.fish.common.enums.Module;
 import com.github.fish.common.exceptions.BaseBizException;
+import com.github.fish.common.utils.CoderUtil;
 import com.github.fish.common.utils.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,13 @@ public class SystemUserBiz {
     public SystemUser getSystemUserByAccount(String userAccount) {
         return systemUserMapper.getSystemUserByAccount(userAccount);
     }
+
+    public SystemUser getSystemUserByLogin(String userAccount, String password) throws BaseBizException {
+        //密码是明文需要加密与之匹配
+        password = CoderUtil.encrypt(password);
+        return systemUserMapper.getSystemUserByLogin(userAccount,password);
+    }
+
 
     //方法上注解属性会覆盖类注解上的相同属性
     //@Transactional(readOnly = true)

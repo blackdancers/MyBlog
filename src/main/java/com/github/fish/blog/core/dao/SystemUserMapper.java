@@ -8,4 +8,6 @@ public interface SystemUserMapper extends Mapper<SystemUser> {
     SystemUser getSystemUserByAccount(String userAccount);
 
     SystemUser getSystemUserByIdentifier(@Param("identifier")String identifier);
+
+    SystemUser getSystemUserByLogin(@Param("userAccount")String userAccount,@Param("password") String password);
 }

@@ -20,6 +20,11 @@ public class SystemUserServiceImpl implements SystemUserService {
         return systemUserBiz.getSystemUserByAccount(userAccount);
     }
 
+    @Override
+    public SystemUser getSystemUserByLogin(String userAccount, String password) throws BaseBizException {
+        return systemUserBiz.getSystemUserByLogin(userAccount, password);
+    }
+
     public SystemUser getSystemUserById(Long id) {
         return systemUserBiz.getSystemUserById(id);
     }

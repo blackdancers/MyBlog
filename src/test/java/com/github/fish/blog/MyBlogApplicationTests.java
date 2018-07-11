@@ -2,8 +2,8 @@ package com.github.fish.blog;
 
 import com.github.fish.blog.api.entity.SystemUser;
 import com.github.fish.blog.api.service.SystemUserService;
+import com.github.fish.common.utils.CoderUtil;
 import com.github.fish.common.utils.JsonUtil;
-import com.github.fish.common.utils.PasswordUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -36,17 +36,14 @@ public class MyBlogApplicationTests {
         SystemUser systemUser = new SystemUser();
         systemUser.setUserName("野猪佩奇");
         systemUser.setUserAccount("18611899696");
-        systemUser.setPassword("fb1234");
         systemUser.setCreateDate(new Date());
         systemUser.setSex("0");
         systemUser.setMobilePhone("18611899696");
         systemUser.setUserEmail("245675499@qq.com");
         systemUser.setUserStatus("0");
-        Map<String, String> map = PasswordUtil.encrypt(systemUser.getUserAccount(), systemUser.getPassword());
-        systemUser.setPassword(map.get("encodedPassword"));
-        systemUser.setSaltValue(map.get("salt"));
+        String password = CoderUtil.encrypt("fb1234");
+        systemUser.setPassword(password);
         systemUser.encrypt();
-
         Long id = systemUserService.addSystemUser(systemUser);
         logger.debug("测试添加用户，ID={}",id);
     }

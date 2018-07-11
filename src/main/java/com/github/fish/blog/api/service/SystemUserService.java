@@ -13,6 +13,8 @@ public interface SystemUserService {
      */
     public SystemUser getSystemUserByAccount(String userAccount);
 
+    public SystemUser getSystemUserByLogin(String userAccount,String password) throws BaseBizException ;
+
     public SystemUser getSystemUserById(Long id);
 
     public Long addSystemUser(SystemUser systemUser) throws BaseBizException ;

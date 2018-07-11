@@ -28,4 +28,12 @@
     WHERE mobile_phone = #{identifier} OR user_account = #{identifier}
     LIMIT 1
   </select>
+
+  <select id="getSystemUserByLogin" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM system_user
+    WHERE user_account = #{userAccount} AND password = #{password}
+    LIMIT 1
+  </select>
+
 </mapper>

@@ -56,28 +56,25 @@
 <!--/*/</th:block>/*/-->
 <script>
     /*API*/
-//    $.fn.api.settings.api={
-//        'posts': '/admin/login'
-//    };
-//    $('.ui.button').api({
-//        action: 'posts',
-//        method : 'POST',
-//        serializeForm: true,
-//        data:{
-//            userAccount:$('#userAccount').val(),
-//            password : $('#password').val()
-//        },
-//        onSuccess: function (response) {
-//            response.map(function (res) {
-//                console.log(res);
-//            });
-//        }
-//    });
-//    $("body").bind('keyup', function(event) {
-//        if(event.keyCode == 13) {
-//            $(".ui.button").click();
-//        }
-//    });
+    $.fn.api.settings.api={
+        'posts': '/admin/login'
+    };
+    $('.ui.button').api({
+        action: 'posts',
+        method : 'POST',
+        serializeForm: true,
+        data:JSON.stringify({"userAccount":$('#userAccount').val(),"password":$("#password").val()}),
+        onSuccess: function (response) {
+            response.map(function (res) {
+                console.log(res);
+            });
+        }
+    });
+    $("body").bind('keyup', function(event) {
+        if(event.keyCode == 13) {
+            $(".ui.button").click();
+        }
+    });
     $('.ui.form').form({
         fields: {
             username: {
@@ -100,7 +97,7 @@
     function login() {
         var userAccount=$('#userAccount').val();
         var password=$("#password").val();
-        var info={"userAccount":userAccount,"password":password};
+        var info={"userAccount":$('#userAccount').val(),"password":$("#password").val()};
         $.ajax({
             url:"/admin/login",
             type:"post",
@@ -117,9 +114,9 @@
         });
     }
 
-    $(".ui.button").click('on',function () {
-        login();
-    });
+//    $(".ui.button").click('on',function () {
+//        login();
+//    });
 
 
 </script>
