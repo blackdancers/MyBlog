@@ -52,26 +52,44 @@
 
 <div class="m-container-small m-padded-tb-big">
     <div class="ui container">
-        <form action="#" class="ui segment form" method="POST">
+        <!--添加或删除是提示信息-->
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+            <i class="close icon"></i>
+            <div class="header">提示:</div>
+            <p th:text="${message}">替换实际内容</p>
+        </div>
+
+
+        <form action="#" th:action="@{/admin/blog}" class="ui secondary segment form">
             <div class="inline fields">
                 <div class="field">
-                    <input type="text" name="title" placeholder="标题">
+                    <input type="text" name="articleName" placeholder="文章标题">
                 </div>
                 <div class="field">
-                    <div class="ui fluid normal selection dropdown">
-                        <input type="hidden" name="country">
+                    <!--<div class="ui compact menu">-->
+                        <!--<div class="ui fluid normal selection dropdown" th:object="${searchParams}">-->
+                            <!--<input type="hidden" name="classId" th:value="*{classId}">-->
+                            <!--<i class="dropdown icon"></i>-->
+                            <!--<div class="default text">全部</div>-->
+                            <!--<div class="menu" th:object="${classList}">-->
+                                <!--<div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="classId">
                         <i class="dropdown icon"></i>
-                        <div class="default text">Select Country</div>
+                        <div class="default text">请选择</div>
                         <div class="menu">
-                            <div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>
-                            <div class="item" data-value="zm"><i class="zm flag"></i>Zambia</div>
-                            <div class="item" data-value="zw"><i class="zw flag"></i>Zimbabwe</div>
+                            <div class="item" data-value="1">Male</div>
+                            <div class="item" data-value="0">Female</div>
                         </div>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="recommend" name="recommend">
+                        <input type="checkbox" id="recommend" name="isRecommend">
                         <label for="recommend">是否推荐</label>
                     </div>
                 </div>
@@ -81,165 +99,53 @@
             </div>
         </form>
 
-
-        <table class="ui celled table">
+        <!--celled-->
+        <table class="ui compact teal table">
             <thead>
             <tr>
-                <th></th>
-                <th>标题</th>
-                <th>类型</th>
-                <th>推荐</th>
+                <th>序号</th>
+                <th>文章标题</th>
+                <th>所属分类</th>
+                <th>是否推荐</th>
                 <th>更新时间</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>刻意练习清单</td>
-                <td>知识升级</td>
-                <td>是</td>
-                <td>2018-06-25 09:45</td>
+            <tr th:each="article,iterStat:${page.list}">
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${article.articleName}">标题</td>
+                <td th:text="${article.className}">类型</td>
+                <td th:text="${article.isRecommend}">推荐</td>
+                <td th:text="${article.updateDate}">更新时间</td>
                 <td>
-                    <a href="#" class="ui mini teal basic button">编辑</a>
-                    <a href="#" class="ui mini blue basic button">删除</a>
+                    <a href="#" th:href="@{/admin/blog/update/{id}(id=${article.id})}"
+                       class="ui mini teal basic button">编辑</a>
+                    <a href="#" th:href="@{/admin/blog/delete/{id}(id=${article.id})}"
+                       class="ui mini blue basic button">删除</a>
                 </td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>刻意练习清单</td>
-                <td>知识升级</td>
-                <td>是</td>
-                <td>2018-06-25 09:45</td>
-                <td>
-                    <a href="#" class="ui mini teal basic button">编辑</a>
-                    <a href="#" class="ui mini blue basic button">删除</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>刻意练习清单</td>
-                <td>知识升级</td>
-                <td>是</td>
-                <td>2018-06-25 09:45</td>
-                <td>
-                    <a href="#" class="ui mini teal basic button">编辑</a>
-                    <a href="#" class="ui mini blue basic button">删除</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>刻意练习清单</td>
-                <td>知识升级</td>
-                <td>是</td>
-                <td>2018-06-25 09:45</td>
-                <td>
-                    <a href="#" class="ui mini teal basic button">编辑</a>
-                    <a href="#" class="ui mini blue basic button">删除</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>刻意练习清单</td>
-                <td>知识升级</td>
-                <td>是</td>
-                <td>2018-06-25 09:45</td>
-                <td>
-                    <a href="#" class="ui mini teal basic button">编辑</a>
-                    <a href="#" class="ui mini blue basic button">删除</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>刻意练习清单</td>
-                <td>知识升级</td>
-                <td>是</td>
-                <td>2018-06-25 09:45</td>
-                <td>
-                    <a href="#" class="ui mini teal basic button">编辑</a>
-                    <a href="#" class="ui mini blue basic button">删除</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>刻意练习清单</td>
-                <td>知识升级</td>
-                <td>是</td>
-                <td>2018-06-25 09:45</td>
-                <td>
-                    <a href="#" class="ui mini teal basic button">编辑</a>
-                    <a href="#" class="ui mini blue basic button">删除</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>刻意练习清单</td>
-                <td>知识升级</td>
-                <td>是</td>
-                <td>2018-06-25 09:45</td>
-                <td>
-                    <a href="#" class="ui mini teal basic button">编辑</a>
-                    <a href="#" class="ui mini blue basic button">删除</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>刻意练习清单</td>
-                <td>知识升级</td>
-                <td>是</td>
-                <td>2018-06-25 09:45</td>
-                <td>
-                    <a href="#" class="ui mini teal basic button">编辑</a>
-                    <a href="#" class="ui mini blue basic button">删除</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>刻意练习清单</td>
-                <td>知识升级</td>
-                <td>是</td>
-                <td>2018-06-25 09:45</td>
-                <td>
-                    <a href="#" class="ui mini teal basic button">编辑</a>
-                    <a href="#" class="ui mini blue basic button">删除</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>刻意练习清单</td>
-                <td>知识升级</td>
-                <td>是</td>
-                <td>2018-06-25 09:45</td>
-                <td>
-                    <a href="#" class="ui mini teal basic button">编辑</a>
-                    <a href="#" class="ui mini blue basic button">删除</a>
-                </td>
-            </tr>
-
-
             </tbody>
             <tfoot>
             <tr>
                 <th colspan="6">
-                    <a href="#" class="ui mini orange basic button">新增</a>
-                    <div class="ui right floated pagination menu">
+                    <a href="#" th:href="@{/admin/blog/add}" class="ui mini orange basic button">新增</a>
+                    <div class="ui right floated pagination menu" th:if="${page.pages} > 1">
                         <a class="icon item">
-                            <i class="left chevron icon"></i>
+                            <i class="left chevron icon"></i>下一页
                         </a>
                         <a class="item">1</a>
                         <a class="item">2</a>
                         <a class="item">3</a>
                         <a class="item">4</a>
                         <a class="icon item">
-                            <i class="right chevron icon"></i>
+                            上一页<i class="right chevron icon"></i>
                         </a>
                     </div>
                 </th>
             </tr>
             </tfoot>
         </table>
-
-
     </div>
 </div>
 
@@ -251,7 +157,8 @@
             <div class="three wide column">
                 <div class="ui inverted link list">
                     <div class="item">
-                        <img src="/static/images/wechat-qr.jpg" th:src="@{/images/wechat-qr.jpg}" alt="QR-CODE" class="ui rounded image" style="width: 100px">
+                        <img src="/static/images/wechat-qr.jpg" th:src="@{/images/wechat-qr.jpg}" alt="QR-CODE"
+                             class="ui rounded image" style="width: 100px">
                     </div>
                 </div>
             </div>

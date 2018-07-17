@@ -3,8 +3,9 @@ package com.github.fish.blog.api.service;
 import com.github.fish.blog.api.entity.Classification;
 import com.github.fish.common.exceptions.BaseBizException;
 import com.github.pagehelper.PageInfo;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * 博客分类
@@ -22,7 +23,7 @@ public interface ClassificationService {
 
     public PageInfo<Classification> getClassificationListByPage(Pageable pageable);
 
-    public Page<Classification> getClassificationByPage(Pageable pageable);
+    public List<Classification> getClassificationList();
 
     public Boolean getClassificationByName(String className);
 }

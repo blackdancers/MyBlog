@@ -23,4 +23,23 @@
     is_comment, is_issue, is_recommend,article_content, class_id, user_id, create_date, update_date
   </sql>
 
+  <select id="getArticlePageBySearch" resultType="com.github.fish.blog.api.entity.Article">
+    SELECT a.id,a.article_name AS articleName,a.is_recommend AS isRecommend,
+      a.is_issue AS isIssue,a.update_date AS updateDate,cc.class_name AS className
+    FROM article a
+    LEFT JOIN classification cc ON cc.id = a.class_id
+    <where>
+      <if test="article.articleName != null and article.articleName != ''">
+        AND a.article_name LIKE CONCAT('%', #{article.articleName}, '%')
+      </if>
+      <if test="article.classId != null and article.classId != ''">
+        AND a.class_id = #{article.classId}
+      </if>
+      <if test="article.isRecommend != null and article.isRecommend != ''">
+        AND a.is_recommend = #{article.isRecommend}
+      </if>
+    </where>
+    ORDER BY a.update_date DESC
+  </select>
+
 </mapper>

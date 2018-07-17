@@ -60,11 +60,8 @@ public class ClassificationBiz {
         return new PageInfo<>(dataList);
     }
 
-    public Page<Classification> getClassificationByPage(Pageable pageable) {
-        PageHelper.startPage(pageable.getPageNumber(),pageable.getPageSize());
-        List<Classification> dataList = classificationMapper.selectAll();
-        PageImpl page = new PageImpl<>(dataList,pageable,dataList.size());
-        return page;
+    public List<Classification> getClassificationList() {
+        return classificationMapper.selectAll();
     }
 
     public Boolean getClassificationByName(String className) {

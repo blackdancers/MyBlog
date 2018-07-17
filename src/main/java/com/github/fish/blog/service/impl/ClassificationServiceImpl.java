@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Component("classificationService")
 public class ClassificationServiceImpl implements ClassificationService {
@@ -43,8 +44,8 @@ public class ClassificationServiceImpl implements ClassificationService {
     }
 
     @Override
-    public Page<Classification> getClassificationByPage(Pageable pageable) {
-        return classificationBiz.getClassificationByPage(pageable);
+    public List<Classification> getClassificationList() {
+        return classificationBiz.getClassificationList();
     }
 
     @Override

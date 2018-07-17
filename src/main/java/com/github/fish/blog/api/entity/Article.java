@@ -64,6 +64,12 @@ public class Article extends AbstractBaseEntity {
     private Long classId;
 
     /**
+     * 分类名称
+     */
+    @Transient
+    private String className;
+
+    /**
      * 用户ID
      */
     @Column(name = "user_id")
