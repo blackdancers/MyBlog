@@ -8,4 +8,8 @@
   <sql id="Base_Column_List">
     id, tag_name
   </sql>
+
+  <select id="getTagsByName" resultType="java.lang.Boolean">
+    SELECT EXISTS(SELECT 1 FROM tags WHERE tag_name=#{tagName})
+  </select>
 </mapper>

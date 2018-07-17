@@ -1,6 +1,8 @@
 package com.github.fish.blog.api.entity;
 
 import com.github.fish.common.entity.AbstractBaseEntity;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 
 public class Tags extends AbstractBaseEntity {
@@ -8,6 +10,7 @@ public class Tags extends AbstractBaseEntity {
      * 标签名称
      */
     @Column(name = "tag_name")
+    @NotBlank(message = "标签名称不能为空")
     private String tagName;
 
     /**

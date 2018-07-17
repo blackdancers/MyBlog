@@ -6,7 +6,6 @@ import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
@@ -25,6 +24,11 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Properties;
 
+/**
+ *
+ * java.lang.NoClassDefFoundError: org/apache/log4j/Priority
+ *
+ */
 @Configuration
 @EnableTransactionManagement
 //@MapperScan(value = "com.github.fish.blog.core.dao")

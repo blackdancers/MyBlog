@@ -8,4 +8,8 @@
   <sql id="Base_Column_List">
     id, class_name
   </sql>
+
+  <select id="getClassificationByName" resultType="java.lang.Boolean">
+    SELECT EXISTS(SELECT 1 FROM classification WHERE class_name=#{className})
+  </select>
 </mapper>

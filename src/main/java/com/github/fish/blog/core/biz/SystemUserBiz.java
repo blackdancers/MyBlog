@@ -7,6 +7,7 @@ import com.github.fish.common.enums.Module;
 import com.github.fish.common.exceptions.BaseBizException;
 import com.github.fish.common.utils.CoderUtil;
 import com.github.fish.common.utils.JsonUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,12 @@ public class SystemUserBiz {
     //方法上注解属性会覆盖类注解上的相同属性
     @Transactional(propagation = Propagation.REQUIRED)
     public Long addSystemUser(SystemUser systemUser) throws BaseBizException{
+        //密码加密
+        if (StringUtils.isNotBlank(systemUser.getPassword())){
+            systemUser.setPassword(CoderUtil.encrypt(systemUser.getPassword()));
+        }
+        //手机号加密
+        systemUser.encrypt();
         int res = systemUserMapper.insert(systemUser);
         if (res<=0){
             throw new BaseBizException(-1,"添加失败", Module.BASE);

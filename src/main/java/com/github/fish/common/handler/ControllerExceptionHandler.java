@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * @ControllerAdvice 注解会拦截所有标注有@Controller的控制器
  */
 
-//@ControllerAdvice
+@ControllerAdvice
 public class ControllerExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler.class);

@@ -1,6 +1,8 @@
 package com.github.fish.blog.api.entity;
 
 import com.github.fish.common.entity.AbstractBaseEntity;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 
 public class Classification extends AbstractBaseEntity {
@@ -8,6 +10,7 @@ public class Classification extends AbstractBaseEntity {
      * 分类名称
      */
     @Column(name = "class_name")
+    @NotBlank(message = "分类名称不能为空")
     private String className;
 
     /**
