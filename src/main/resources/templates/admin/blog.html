@@ -51,6 +51,7 @@
 </div>
 
 <div class="m-container-small m-padded-tb-big">
+
     <div class="ui container">
         <!--添加或删除是提示信息-->
         <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
@@ -60,49 +61,39 @@
         </div>
 
 
-        <form action="#" th:action="@{/admin/blog}" class="ui secondary segment form">
+        <div class="ui secondary segment form">
 
             <input type="hidden" name="page">
+
             <div class="inline fields">
                 <div class="field">
                     <input type="text" name="articleName" placeholder="文章标题">
                 </div>
                 <div class="field">
-                    <!--<div class="ui compact menu">-->
-                        <!--<div class="ui fluid normal selection dropdown" th:object="${searchParams}">-->
-                            <!--<input type="hidden" name="classId" th:value="*{classId}">-->
-                            <!--<i class="dropdown icon"></i>-->
-                            <!--<div class="default text">全部</div>-->
-                            <!--<div class="menu" th:object="${classList}">-->
-                                <!--<div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-
                     <div class="ui selection dropdown">
                         <input type="hidden" name="classId">
                         <i class="dropdown icon"></i>
                         <div class="default text">请选择</div>
                         <div class="menu">
-                            <div class="item" data-value="1">Male</div>
-                            <div class="item" data-value="0">Female</div>
+                            <div class="item" th:each="type : ${classList}" th:data-value="${type.id}" th:text="${type.className}"></div>
                         </div>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="recommend" name="isRecommend">
-                        <label for="recommend">是否推荐</label>
+                        <input type="checkbox" name="isRecommend">
+                        <label>是否推荐</label>
                     </div>
                 </div>
                 <div class="field">
-                    <button class="ui mini right floated teal basic button"><i class="search icon"></i>查询</button>
+                    <button type="button" id="search-btn" class="ui mini right floated teal basic button"><i class="search icon"></i>查询</button>
                 </div>
             </div>
-        </form>
-
-        <!--celled-->
-        <table class="ui compact teal table">
+        </div>
+        <div id="table-container">
+            <!--celled-->
+            <!--th:fragment="blogList" 模板片段-->
+            <table th:fragment="blogList" class="ui compact teal table">
             <thead>
             <tr>
                 <th>序号</th>
@@ -118,8 +109,9 @@
                 <td th:text="${iterStat.count}">1</td>
                 <td th:text="${article.articleName}">标题</td>
                 <td th:text="${article.className}">类型</td>
-                <td th:text="${article.isRecommend==1}?'是':'否'">推荐</td>
-                <td th:text="${article.updateDate}">更新时间</td>
+                <td th:text="${article.isRecommend}==1 ?'是':'否'">是</td>
+                <td th:text="${#calendars.format(article.updateDate,'yyyy-MM-dd hh:mm:ss')}">更新时间</td>
+
                 <td>
                     <a href="#" th:href="@{/admin/blog/update/{id}(id=${article.id})}" class="ui mini teal basic button">编辑</a>
                     <a href="#" th:href="@{/admin/blog/delete/{id}(id=${article.id})}" class="ui mini blue basic button">删除</a>
@@ -130,18 +122,19 @@
             <tr>
                 <th colspan="6">
                     <a href="#" th:href="@{/admin/blog/add}" class="ui mini orange basic button">新增</a>
-                    <div class="ui right floated pagination menu" th:if="${page.pages} > 1">
-                        <a onclick="page(this)" th:attr="data-page=${page.pageNum}-1" th:href="@{/admin/blog(page=${page.pageNum}-1)}" th:unless="${page.isFirstPage}" class="icon item"><i class="left chevron icon"></i>上一页</a>
+                    <div class="ui right floated pagination small basic icon buttons" th:if="${page.pages} > 1">
+                        <a class="ui labeled icon button" onclick="page(this)" th:attr="data-page=${page.pageNum}-1" th:href="@{/admin/blog(page=${page.pageNum}-1)}" th:unless="${page.isFirstPage}"><i class="left chevron icon"></i>上一页</a>
                         <!--<a class="item">1</a>-->
                         <!--<a class="item">2</a>-->
                         <!--<a class="item">3</a>-->
                         <!--<a class="item">4</a>-->
-                        <a onclick="page(this)" th:attr="data-page=${page.pageNum}+1" th:href="@{/admin/blog(page=${page.pageNum}+1)}" th:unless="${page.isLastPage}" class="icon item">下一页<i class="right chevron icon"></i></a>
+                        <a class="ui right labeled icon button" onclick="page(this)" th:attr="data-page=${page.pageNum}+1" th:href="@{/admin/blog(page=${page.pageNum}+1)}" th:unless="${page.isLastPage}">下一页<i class="right chevron icon"></i></a>
                     </div>
                 </th>
             </tr>
             </tfoot>
         </table>
+        </div>
     </div>
 </div>
 
@@ -197,6 +190,37 @@
     $(".ui.dropdown").dropdown({
         on: 'hover'
     });
+
+    /*分页数据*/
+    function page(obj) {
+        //obj就是请求URL,参数就是page -->> http://localhost:8081/admin/blog?page=2
+        $("[name='page']").val($(obj).data("page"));
+        loadData();
+    }
+
+    /*模板局部AJAX刷新数据*/
+    function loadData() {
+        $("#table-container").load(/*[[@{/admin/blog/search}]]*/"/admin/blog/search",{
+            articleName:$("[name=articleName]").val(),
+            classId:$("[name=classId]").val(),
+            isRecommend:$("[name=isRecommend]").attr('data-value'),
+            page:$("[name='page']").val()
+        });
+    }
+    /*搜索*/
+    $("#search-btn").click(function () {
+        loadData();
+    });
+    // 把checkbox的默认值true/false转换成1/0
+    $('.ui .checkbox').on('click', function() {
+        var $check = $("[name=isRecommend]");
+        if ($check.prop('checked')){
+            $check.attr('data-value',1);
+        }else {
+            $check.attr('data-value',0);
+        }
+    });
+
 
 </script>
 </body>

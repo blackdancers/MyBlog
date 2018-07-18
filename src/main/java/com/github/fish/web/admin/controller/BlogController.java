@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -37,15 +38,29 @@ public class BlogController {
      * @return
      */
     @GetMapping("blog")
-    public String blogManage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.DESC)
+    public String blogList(@PageableDefault(size = 5, sort = {"id"}, direction = Sort.Direction.DESC)
                                          Pageable pageable, Article article, Model model) {
         PageInfo<Article> articlePageBySearch = articleService.getArticlePageBySearch(article, pageable);
         List<Classification> classList = classificationService.getClassificationList();
         model.addAttribute("classList",classList); //所属分类
-        model.addAttribute("searchParams",article);
         model.addAttribute("page",articlePageBySearch);
         System.out.println(JsonUtil.obj2Json(articlePageBySearch));
         return "admin/blog";
+    }
+
+    /**
+     * 查询
+     * @param pageable
+     * @param article
+     * @param model
+     * @return
+     */
+    @PostMapping("blog/search")
+    public String blogSearchList(@PageableDefault(size = 5, sort = {"id"}, direction = Sort.Direction.DESC)
+                                   Pageable pageable, Article article, Model model) {
+        PageInfo<Article> articlePageBySearch = articleService.getArticlePageBySearch(article, pageable);
+        model.addAttribute("page",articlePageBySearch);
+        return "admin/blog :: blogList"; //thymeleaf模板
     }
 
     /**

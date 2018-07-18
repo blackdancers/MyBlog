@@ -96,7 +96,7 @@
                     <!--<a th:href="@{/admin/category(page=${page.pageNum}-1)}" class="icon item" th:unless="${page.isFirstPage}"><i class="left chevron icon"></i>上一页</a>-->
                     <!--<a th:href="@{/admin/category(page=${page.pageNum}+1)}" class="icon item" th:unless="${page.isLastPage}">下一页<i class="right chevron icon"></i></a>-->
                     <!--</div>-->
-                    <div class="ui right floated pagination small basic icon  buttons" th:if="${page.pages} > 1">
+                    <div class="ui right floated pagination small basic icon buttons" th:if="${page.pages} > 1">
                         <a class="ui labeled icon button" th:href="@{/admin/category(page=${page.pageNum}-1)}" th:unless="${page.isFirstPage}"><i class="left chevron icon"></i> 上一页 </a>
                         <a class="ui right labeled icon button" th:href="@{/admin/category(page=${page.pageNum}+1)}" th:unless="${page.isLastPage}">下一页 <i class="right chevron icon"></i> </a>
                     </div>
