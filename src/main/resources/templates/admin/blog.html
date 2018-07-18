@@ -61,6 +61,8 @@
 
 
         <form action="#" th:action="@{/admin/blog}" class="ui secondary segment form">
+
+            <input type="hidden" name="page">
             <div class="inline fields">
                 <div class="field">
                     <input type="text" name="articleName" placeholder="文章标题">
@@ -116,13 +118,11 @@
                 <td th:text="${iterStat.count}">1</td>
                 <td th:text="${article.articleName}">标题</td>
                 <td th:text="${article.className}">类型</td>
-                <td th:text="${article.isRecommend}">推荐</td>
+                <td th:text="${article.isRecommend==1}?'是':'否'">推荐</td>
                 <td th:text="${article.updateDate}">更新时间</td>
                 <td>
-                    <a href="#" th:href="@{/admin/blog/update/{id}(id=${article.id})}"
-                       class="ui mini teal basic button">编辑</a>
-                    <a href="#" th:href="@{/admin/blog/delete/{id}(id=${article.id})}"
-                       class="ui mini blue basic button">删除</a>
+                    <a href="#" th:href="@{/admin/blog/update/{id}(id=${article.id})}" class="ui mini teal basic button">编辑</a>
+                    <a href="#" th:href="@{/admin/blog/delete/{id}(id=${article.id})}" class="ui mini blue basic button">删除</a>
                 </td>
             </tr>
             </tbody>
@@ -131,16 +131,12 @@
                 <th colspan="6">
                     <a href="#" th:href="@{/admin/blog/add}" class="ui mini orange basic button">新增</a>
                     <div class="ui right floated pagination menu" th:if="${page.pages} > 1">
-                        <a class="icon item">
-                            <i class="left chevron icon"></i>下一页
-                        </a>
-                        <a class="item">1</a>
-                        <a class="item">2</a>
-                        <a class="item">3</a>
-                        <a class="item">4</a>
-                        <a class="icon item">
-                            上一页<i class="right chevron icon"></i>
-                        </a>
+                        <a onclick="page(this)" th:attr="data-page=${page.pageNum}-1" th:href="@{/admin/blog(page=${page.pageNum}-1)}" th:unless="${page.isFirstPage}" class="icon item"><i class="left chevron icon"></i>上一页</a>
+                        <!--<a class="item">1</a>-->
+                        <!--<a class="item">2</a>-->
+                        <!--<a class="item">3</a>-->
+                        <!--<a class="item">4</a>-->
+                        <a onclick="page(this)" th:attr="data-page=${page.pageNum}+1" th:href="@{/admin/blog(page=${page.pageNum}+1)}" th:unless="${page.isLastPage}" class="icon item">下一页<i class="right chevron icon"></i></a>
                     </div>
                 </th>
             </tr>
