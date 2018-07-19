@@ -49,7 +49,7 @@ public class BlogController {
     }
 
     /**
-     * 查询
+     * 查询列表并重新渲染列表区域
      * @param pageable
      * @param article
      * @param model
