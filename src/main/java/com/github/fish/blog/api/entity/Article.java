@@ -1,14 +1,18 @@
 package com.github.fish.blog.api.entity;
 
 import com.github.fish.common.entity.AbstractBaseEntity;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.persistence.Column;
+import javax.persistence.Transient;
 import java.util.Date;
-import javax.persistence.*;
 
 public class Article extends AbstractBaseEntity {
     /**
      * 文章标题
      */
     @Column(name = "article_name")
+    @NotBlank(message = "文章标题不能为空")
     private String articleName;
 
     /**
@@ -92,6 +96,13 @@ public class Article extends AbstractBaseEntity {
      */
     @Column(name = "article_content")
     private String articleContent;
+
+    /**
+     * 标签集合
+     */
+    @Transient
+    private String tagIds;
+
 
     /**
      * 获取文章标题
@@ -351,5 +362,13 @@ public class Article extends AbstractBaseEntity {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
     }
 }

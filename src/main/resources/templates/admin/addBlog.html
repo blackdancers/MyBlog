@@ -40,8 +40,8 @@
 </nav>
 
 <!--二级导航-->
-<div class="m-container-small">
-    <div class="ui attached pointing menu">
+<div class="m-container">
+    <div class="ui attached pointing stackable menu">
         <div class="ui container">
             <div class="right menu">
                 <a href="#" class="teal active item">发布</a>
@@ -51,13 +51,16 @@
     </div>
 </div>
 
-<div class="m-container-small m-padded-tb-big">
+<div class="m-container m-padded-tb-big">
     <div class="ui container">
-        <form action="#" class="ui form" method="post">
+        <form action="#" th:action="@{/admin/blog/add}" id="blog-form" class="ui form" method="post">
+
+            <input type="hidden" name="isIssue">
+
             <div class="required field">
                 <div class="ui left labeled input">
                     <div class="ui selection compact dropdown label"> <!--teal basic -->
-                        <input type="hidden" value="原创">
+                        <input type="hidden" name="articleFlag">
                         <i class="dropdown icon"></i>
                         <div class="text">原创</div><!--default text-->
                         <div class="menu">
@@ -67,55 +70,26 @@
                             <div class="item" data-value="4">其他</div>
                         </div>
                     </div>
-                    <input type="text" name="title" placeholder="标题">
+                    <input type="text" name="articleName" placeholder="标题">
                 </div>
             </div>
-            <!--<div class="ui field">
-                <div class="ui left labeled input">
-                    <input type="text" placeholder="Find domain">
-                    <div class="ui dropdown label">
-                        <div class="text">.com</div>
-                        <i class="dropdown icon"></i>
-                        <div class="menu">
-                            <div class="item">.com</div>
-                            <div class="item">.net</div>
-                            <div class="item">.org</div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-
-            <!--<div class="field">
-                <textarea name="content" id="content" cols="30" rows="10" placeholder="输入博客内容..."></textarea>
-            </div>-->
             <div class="field">
                 <div id="md-content" style="z-index: 1 !important">
-                    <textarea name="content" id="content" style="display: none" placeholder="输入博客内容...">[TOC]
-#### Disabled options
-
-- TeX (Based on KaTeX);
-- Emoji;
-- Task lists;
-- HTML tags decode;
-- Flowchart and Sequence Diagram;
-
-#### Editor.md directory</textarea>
+                    <textarea name="articleContent" id="articleContent" style="display: none" placeholder="输入博客内容..."></textarea>
                 </div>
             </div>
-
-
-
             <div class="two fields">
                 <div class="field">
                     <div class="ui left labeled action input">
                         <label class="ui compact teal basic label">分类</label>
-                        <div class="ui fluid multiple search selection dropdown">
-                            <input type="hidden" name="type">
+                        <div class="ui fluid search selection dropdown">
+                            <input type="hidden" name="classId">
                             <i class="dropdown icon"></i>
                             <div class="default text">分类</div>
                             <div class="menu">
-                                <div class="item" data-value="1">错误日志</div>
-                                <div class="item" data-value="2">开发手册</div>
+                                <div class="item" th:each="type : ${classList}" th:data-value="${type.id}" th:text="${type.className}"></div>
+                                <!--<div class="item" data-value="1">错误日志</div>-->
+                                <!--<div class="item" data-value="2">开发手册</div>-->
                             </div>
                         </div>
                     </div>
@@ -124,14 +98,17 @@
                     <div class="ui left labeled action input">
                         <label class="ui compact teal basic label">标签</label>
                         <div class="ui fluid multiple search selection dropdown">
-                            <input type="hidden" name="tag">
+                            <input type="hidden" name="tagIds">
                             <i class="dropdown icon"></i>
                             <div class="default text">标签</div>
                             <div class="menu">
+                                <div class="item" th:each="tag : ${tagsList}" th:data-value="${tag.id}" th:text="${tag.tagName}"></div>
+                                <!--/*-->
                                 <div class="item" data-value="1">Java</div>
                                 <div class="item" data-value="2">NoSQL</div>
                                 <div class="item" data-value="3">MySQL</div>
                                 <div class="item" data-value="4">Hive</div>
+                                <!--*/-->
                             </div>
                         </div>
                     </div>
@@ -141,20 +118,20 @@
             <div class="field">
                 <div class="ui left labeled input">
                     <div class="ui teal basic label">封面</div>
-                    <input type="text" name="indexPicture" placeholder="封面图片地址">
+                    <input type="text" name="articleCover" placeholder="封面图片地址">
                 </div>
             </div>
             <div class="inline fields">
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="recommend" name="recommend" checked class="hidden">
-                        <label for="recommend">推荐</label>
+                        <input type="checkbox" id="isRecommend" name="isRecommend" class="hidden">
+                        <label for="isRecommend">推荐</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="blogInfo" name="blogInfo" class="hidden">
-                        <label for="blogInfo">转载</label>
+                        <input type="checkbox" id="shareStatement" name="shareStatement" class="hidden">
+                        <label for="shareStatement">转载</label>
                     </div>
                 </div>
                 <div class="field">
@@ -165,8 +142,8 @@
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="comment" name="comment" class="hidden">
-                        <label for="comment">评论</label>
+                        <input type="checkbox" id="isComment" name="isComment" class="hidden">
+                        <label for="isComment">评论</label>
                     </div>
                 </div>
             </div>
@@ -176,8 +153,8 @@
             <!--居右-->
             <div class="ui right aligned container">
                 <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
-                <button class="ui secondary button">保存</button>
-                <button class="ui teal button">发布</button>
+                <button type="button" id="save-btn" class="ui secondary button">保存</button>
+                <button type="button" id="issue-btn" class="ui teal button">发布</button>
             </div>
         </form>
     </div>
@@ -259,17 +236,79 @@
     /*输入框验证*/
     $(".ui.form").form({
         fields:{
-            title:{
-                identifier:'title',
+            articleName:{
+                identifier:'articleName',
                 rules:[{
                     type:'empty',
                     prompt:'标题：不能为空'
+                }]
+            },
+            articleContent:{
+                identifier:'articleContent',
+                rules:[{
+                    type:'empty',
+                    prompt:'文章内容不能为空'
+                }]
+            },
+            classId:{
+                identifier:'classId',
+                rules:[{
+                    type:'empty',
+                    prompt:'分类不能为空'
+                }]
+            },
+            articleCover:{
+                identifier:'articleCover',
+                rules:[{
+                    type:'empty',
+                    prompt:'文章封面不能为空'
                 }]
             }
         }
     });
 
-
+    /*发布和保存*/
+    $('#save-btn').click(function () {
+        $('[name=isIssue]').val(1);
+        $('#blog-form').submit();
+    });
+    $('#issue-btn').click(function () {
+        $('[name=isIssue]').val(0);
+        $('#blog-form').submit();
+    });
+    // 把checkbox的默认值true/false转换成1/0
+    $('#isRecommend').on('click', function() {
+        var $check = $("[name=isRecommend]");
+        if ($check.prop('checked')){
+            $check.val(1);
+        }else {
+            $check.val(0);
+        }
+    });
+    $('#shareStatement').on('click', function() {
+        var $check = $("[name=shareStatement]");
+        if ($check.prop('checked')){
+            $check.val(1);
+        }else {
+            $check.val(0);
+        }
+    });
+    $('#appreciation').on('click', function() {
+        var $check = $("[name=appreciation]");
+        if ($check.prop('checked')){
+            $check.val(1);
+        }else {
+            $check.val(0);
+        }
+    });
+    $('#isComment').on('click', function() {
+        var $check = $("[name=isComment]");
+        if ($check.prop('checked')){
+            $check.val(1);
+        }else {
+            $check.val(0);
+        }
+    });
 </script>
 </body>
 </html>

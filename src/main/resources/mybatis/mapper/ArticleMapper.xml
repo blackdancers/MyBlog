@@ -42,4 +42,8 @@
     ORDER BY a.update_date DESC
   </select>
 
+  <select id="getArticleByName" resultType="java.lang.Boolean">
+    SELECT EXISTS(SELECT 1 FROM article WHERE article_name=#{articleName})
+  </select>
+
 </mapper>

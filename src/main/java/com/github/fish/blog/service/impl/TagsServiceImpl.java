@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by fishbaby on 7/16/2018.
@@ -48,5 +49,10 @@ public class TagsServiceImpl implements TagsService {
     @Override
     public Boolean getTagsByName(String tagName) {
         return tagsBiz.getTagsByName(tagName);
+    }
+
+    @Override
+    public List<Tags> getTagsList() {
+        return tagsBiz.getTagsList();
     }
 }

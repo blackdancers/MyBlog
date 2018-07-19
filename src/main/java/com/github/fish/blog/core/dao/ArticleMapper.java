@@ -9,4 +9,6 @@ import java.util.List;
 public interface ArticleMapper extends Mapper<Article> {
 
     List<Article> getArticlePageBySearch(@Param("article") Article article);
+
+    Boolean getArticleByName(@Param("articleName") String articleName);
 }

@@ -5,6 +5,8 @@ import com.github.fish.common.exceptions.BaseBizException;
 import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 
 public interface TagsService {
 
@@ -19,4 +21,7 @@ public interface TagsService {
     public PageInfo<Tags> getTagsListByPage(Pageable pageable);
 
     public Boolean getTagsByName(String tagName);
+
+    public List<Tags> getTagsList();
+
 }

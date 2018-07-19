@@ -5,9 +5,7 @@ import com.github.fish.common.exceptions.BaseBizException;
 import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Pageable;
 
-/**
- * Created by liudebin on 2018/7/17.
- */
+
 public interface ArticleService {
 
     public Article getArticleById(Long id);
@@ -20,6 +18,10 @@ public interface ArticleService {
 
     public int deleteArticleById(Long id) throws BaseBizException;
 
-
-
+    /**
+     * 分类名称是否重复
+     * @param articleName
+     * @return
+     */
+    public Boolean getArticleByName(String articleName);
 }

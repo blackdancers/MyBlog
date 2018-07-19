@@ -42,4 +42,9 @@ public class ArticleServiceImpl implements ArticleService {
     public int deleteArticleById(Long id) throws BaseBizException {
         return articleBiz.deleteArticleById(id);
     }
+
+    @Override
+    public Boolean getArticleByName(String articleName) {
+        return articleBiz.getArticleByName(articleName);
+    }
 }

@@ -44,4 +44,7 @@ public class TagsBiz {
     public Boolean getTagsByName(String tagName) {
         return tagsMapper.getTagsByName(tagName);
     }
+    public List<Tags> getTagsList() {
+        return tagsMapper.selectAll();
+    }
 }

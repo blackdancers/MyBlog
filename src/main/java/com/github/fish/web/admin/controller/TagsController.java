@@ -47,7 +47,7 @@ public class TagsController {
     @PostMapping("tags/add")
     public String addTags(@Valid Tags tags, BindingResult result, RedirectAttributes attributes) {
 
-        if(null != tags && StringUtils.isNoneBlank(tags.getTagName())){
+        if(null != tags && StringUtils.isNotBlank(tags.getTagName())){
             Boolean res = tagsService.getTagsByName(tags.getTagName());
             if (res){
                 result.rejectValue("className","message","标签名称已存在");
