@@ -31,7 +31,10 @@ public class ArticleBiz {
 
 
     public Article getArticleById(Long id) {
-        return articleMapper.selectByPrimaryKey(id);
+        Article article = articleMapper.selectByPrimaryKey(id);
+        String tagsIds = articleRefTagMapper.getTagIdsByArticleId(id);
+        article.setTagIds(tagsIds);
+        return article;
     }
 
     public PageInfo<Article> getArticlePageBySearch(Article article, Pageable pageable) {

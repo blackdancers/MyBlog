@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -86,6 +87,26 @@ public class BlogController {
         return "admin/addBlog";
     }
 
+    /**
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("blog/update/{id}")
+    public String updateBlogUI(@PathVariable Long id, Model model) {
+        if (null != id){
+            Article article = articleService.getArticleById(id);
+            model.addAttribute("article",article);
+        }
+        List<Classification> classList = classificationService.getClassificationList();
+        model.addAttribute("classList",classList); //所属分类
+        List<Tags> tagsList = tagsService.getTagsList();
+        model.addAttribute("tagsList",tagsList); //所有标签
+        return "admin/updateBlog";
+    }
+
+
     @PostMapping("blog/add")
     public String addBlog(@Valid Article article, BindingResult result, HttpSession session, RedirectAttributes attributes) {
         Object sessionData = session.getAttribute(IConstInfo.CURRENT_USER);
@@ -108,5 +129,20 @@ public class BlogController {
         }
         return "redirect:/admin/blog";
     }
+
+    @PostMapping("blog/delete/{id}")
+    public String deleteBlog(@PathVariable Long id, RedirectAttributes attributes) {
+        if (null != id){
+            int res = articleService.deleteArticleById(id);
+            if (res <= 0) {
+                attributes.addFlashAttribute("message", "删除失败");
+            } else {
+                attributes.addFlashAttribute("message", "删除成功");
+            }
+        }
+        return "redirect:/admin/blog";
+    }
+
+
 
 }

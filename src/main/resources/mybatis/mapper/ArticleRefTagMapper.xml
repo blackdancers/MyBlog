@@ -9,4 +9,8 @@
   <sql id="Base_Column_List">
     id, article_id, tag_id
   </sql>
+  
+  <select id="getTagIdsByArticleId" resultType="java.lang.String">
+    SELECT GROUP_CONCAT(art.tag_id) FROM article_ref_tag art WHERE art.article_id=#{articleId};
+  </select>
 </mapper>
