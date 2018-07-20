@@ -79,7 +79,7 @@ public class TagsController {
         if(null != tags && StringUtils.isNoneBlank(tags.getTagName())){
             Boolean res = tagsService.getTagsByName(tags.getTagName());
             if (res){
-                result.rejectValue("className","message","标签名称已存在");
+                result.rejectValue("tagName","message","标签名称已存在");
             }
         }
         if (result.hasErrors()){
