@@ -49,30 +49,8 @@
 
 <!--引入模板JS-->
 <!--/*/<th:block th:replace="admin/_fragments :: script">/*/-->
-<script src="/static/js/jquery/3.2/jquery.min.js" th:src="@{/js/jquery/3.2/jquery.min.js}"></script>
-<script src="/static/js/semantic-ui/2.2.4/semantic.min.js" th:src="@{/js/semantic-ui/2.2.4/semantic.min.js}"></script>
 <!--/*/</th:block>/*/-->
 <script>
-    /*API*/
-//    $.fn.api.settings.api={
-//        'posts': '/admin/login'
-//    };
-//    $('.ui.button').api({
-//        action: 'posts',
-//        method : 'POST',
-//        serializeForm: true,
-//        data:JSON.stringify({"userAccount":$('#userAccount').val(),"password":$("#password").val()}),
-//        onSuccess: function (response) {
-//            response.map(function (res) {
-//                console.log(res);
-//            });
-//        }
-//    });
-//    $("body").bind('keyup', function(event) {
-//        if(event.keyCode == 13) {
-//            $(".ui.button").click();
-//        }
-//    });
     $('.ui.form').form({
         fields: {
             username: {

@@ -48,7 +48,7 @@ public class BlogController {
      * @return
      */
     @GetMapping("blog")
-    public String blogList(@PageableDefault(size = 5, sort = {"id"}, direction = Sort.Direction.DESC)
+    public String blogList(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.DESC)
                                          Pageable pageable, Article article, Model model) {
         PageInfo<Article> articlePageBySearch = articleService.getArticlePageBySearch(article, pageable);
         List<Classification> classList = classificationService.getClassificationList();
@@ -66,7 +66,7 @@ public class BlogController {
      * @return
      */
     @PostMapping("blog/search")
-    public String blogSearchList(@PageableDefault(size = 5, sort = {"id"}, direction = Sort.Direction.DESC)
+    public String blogSearchList(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.DESC)
                                    Pageable pageable, Article article, Model model) {
         PageInfo<Article> articlePageBySearch = articleService.getArticlePageBySearch(article, pageable);
         model.addAttribute("page",articlePageBySearch);

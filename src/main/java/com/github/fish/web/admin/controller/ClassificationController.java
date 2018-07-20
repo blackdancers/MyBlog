@@ -30,11 +30,8 @@ public class ClassificationController {
 
 
     @GetMapping("category")
-    public String categoryList(@PageableDefault(size = 12, sort = {"id"}, direction = Sort.Direction.DESC)
+    public String categoryList(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.DESC)
                                        Pageable pageable, Model model) {
-
-//        Page<Classification> classifications = classificationService.getClassificationByPage(pageable);
-//        model.addAttribute("page",classifications); //返回分页数据不全
         PageInfo<Classification> pageInfo = classificationService.getClassificationListByPage(pageable);
         System.out.println(JsonUtil.obj2Json(pageInfo));
         model.addAttribute("page", pageInfo);

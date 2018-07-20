@@ -30,7 +30,7 @@ public class TagsController {
 
 
     @GetMapping("tags")
-    public String tagsList(@PageableDefault(size = 5, sort = {"id"}, direction = Sort.Direction.DESC)
+    public String tagsList(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.DESC)
                                        Pageable pageable, Model model) {
         PageInfo<Tags> pageInfo = tagsService.getTagsListByPage(pageable);
         System.out.println(JsonUtil.obj2Json(pageInfo));
