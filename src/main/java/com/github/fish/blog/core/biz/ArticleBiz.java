@@ -67,6 +67,17 @@ public class ArticleBiz {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public int updateArticle(Article article) throws BaseBizException {
+        //先删除标签，再添加
+        articleRefTagMapper.deleteTagsByArticleId(article.getId());
+        if (StringUtils.isNotBlank(article.getTagIds())){
+            String[] ids = article.getTagIds().split(",");
+            for (int i = 0; i < ids.length; i++) {
+                ArticleRefTag articleRefTag = new ArticleRefTag();
+                articleRefTag.setArticleId(article.getId());
+                articleRefTag.setTagId(Long.valueOf(ids[i]));
+                articleRefTagMapper.insert(articleRefTag);
+            }
+        }
         return articleMapper.updateByPrimaryKeySelective(article);
     }
 

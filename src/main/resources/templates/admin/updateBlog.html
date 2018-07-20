@@ -53,10 +53,10 @@
 
 <div class="m-container m-padded-tb-big">
     <div class="ui container">
-        <form action="#" th:action="@{/admin/blog/add}" th:object="${article}" id="blog-form" class="ui form" method="post">
+        <form action="#" th:action="@{/admin/blog/update/{id}(id=*{id})}" th:object="${article}" id="blog-form" class="ui form" method="post">
 
-            <input type="hidden" name="isIssue">
-
+            <input type="hidden" name="isIssue" th:value="*{isIssue}">
+            <input type="hidden" name="id" th:value="*{id}">
             <div class="required field">
                 <div class="ui left labeled input">
                     <div class="ui selection compact dropdown label"> <!--teal basic -->
@@ -130,19 +130,19 @@
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" th:checked="*{shareStatement}"  id="shareStatement" name="shareStatement" class="hidden">
+                        <input type="checkbox" th:value="*{shareStatement}"  id="shareStatement" name="shareStatement" class="hidden">
                         <label for="shareStatement">转载</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" th:checked="*{appreciation}"  id="appreciation" name="appreciation" class="hidden">
+                        <input type="checkbox" th:value="*{appreciation}"  id="appreciation" name="appreciation" class="hidden">
                         <label for="appreciation">赞赏</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox"  th:checked="*{isComment}" id="isComment" name="isComment" class="hidden">
+                        <input type="checkbox"  th:value="*{isComment}" id="isComment" name="isComment" class="hidden">
                         <label for="isComment">评论</label>
                     </div>
                 </div>

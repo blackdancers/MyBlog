@@ -120,6 +120,9 @@ public class BlogController {
                 result.rejectValue("articleName","message","文章标题重复");
             }
         }
+        if (result.hasErrors()){
+            return "admin/addBlog";
+        }
         article.setUserId(((SystemUser)sessionData).getId());
         Long id = articleService.addArticle(article);
         if (null != id) {
@@ -139,6 +142,31 @@ public class BlogController {
             } else {
                 attributes.addFlashAttribute("message", "删除成功");
             }
+        }
+        return "redirect:/admin/blog";
+    }
+
+    @PostMapping("blog/update/{id}")
+    public String updateBlog(@PathVariable Long id, @Valid Article article, BindingResult result,HttpSession session, RedirectAttributes attributes) {
+        Object sessionData = session.getAttribute(IConstInfo.CURRENT_USER);
+        if (null == sessionData){
+            attributes.addFlashAttribute("message", "登录过期");
+            return "redirect:admin"; //登录页面
+        }
+        Article data = articleService.getArticleById(id);
+        if(null != data && id.equals(article.getId())){
+            article.setUserId(((SystemUser)sessionData).getId());
+        }else {
+            result.rejectValue("id","message","数据错误");
+        }
+        if (result.hasErrors()){
+            return "admin/updateBlog";
+        }
+        int res = articleService.updateArticle(article);
+        if (res <= 0) {
+            attributes.addFlashAttribute("message", "修改失败");
+        } else {
+            attributes.addFlashAttribute("message", "修改成功");
         }
         return "redirect:/admin/blog";
     }

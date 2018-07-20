@@ -13,4 +13,10 @@
   <select id="getTagIdsByArticleId" resultType="java.lang.String">
     SELECT GROUP_CONCAT(art.tag_id) FROM article_ref_tag art WHERE art.article_id=#{articleId};
   </select>
+
+  <delete id="deleteTagsByArticleId">
+    DELETE
+    FROM article_ref_tag
+    WHERE article_id=#{articleId}
+  </delete>
 </mapper>

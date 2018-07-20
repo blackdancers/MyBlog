@@ -7,4 +7,6 @@ import tk.mybatis.mapper.common.Mapper;
 public interface ArticleRefTagMapper extends Mapper<ArticleRefTag> {
 
     String getTagIdsByArticleId(@Param("articleId") Long articleId);
+
+    int deleteTagsByArticleId(Long articleId);
 }
