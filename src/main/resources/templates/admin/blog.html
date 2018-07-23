@@ -108,8 +108,8 @@
                 <td th:text="${iterStat.count}">1</td>
                 <td th:text="${article.articleName}">标题</td>
                 <td th:text="${article.className}">类型</td>
-                <td th:text="${article.isRecommend}==1 ?'是':'否'">是</td>
-                <td th:text="${article.isIssue}==1 ?'草稿':'发布'">草稿</td>
+                <td th:text="${article.isRecommend}==0 ?'是':'否'">是</td>
+                <td th:text="${article.isIssue}==0 ?'草稿':'发布'">草稿</td>
                 <td th:text="${#calendars.format(article.updateDate,'yyyy-MM-dd hh:mm:ss')}">更新时间</td>
 
                 <td>

@@ -3,9 +3,8 @@ package com.github.fish.blog.api.entity;
 import com.github.fish.common.entity.AbstractBaseEntity;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Column;
-import javax.persistence.Transient;
 import java.util.Date;
+import javax.persistence.*;
 
 public class Article extends AbstractBaseEntity {
     /**
@@ -33,30 +32,30 @@ public class Article extends AbstractBaseEntity {
     private Integer views;
 
     /**
-     * 是否开启赞赏功能[0:是;1:否]
+     * 是否开启赞赏功能[1:是;0:否]
      */
     private String appreciation;
 
     /**
-     * 转载声明是否开启[0:是;1:否]
+     * 转载声明是否开启[1:是;0:否]
      */
     @Column(name = "share_statement")
     private String shareStatement;
 
     /**
-     * 是否可评论[0:是;1:否]
+     * 是否可评论[1:是;0:否]
      */
     @Column(name = "is_comment")
     private String isComment;
 
     /**
-     * 发布[0:是;1:否]
+     * 发布[1:是;0:否]
      */
     @Column(name = "is_issue")
     private String isIssue;
 
     /**
-     * 推荐[0:是;1:否]
+     * 推荐[1:是;0:否]
      */
     @Column(name = "is_recommend")
     private String isRecommend;
@@ -66,12 +65,6 @@ public class Article extends AbstractBaseEntity {
      */
     @Column(name = "class_id")
     private Long classId;
-
-    /**
-     * 分类名称
-     */
-    @Transient
-    private String className;
 
     /**
      * 用户ID
@@ -98,10 +91,17 @@ public class Article extends AbstractBaseEntity {
     private String articleContent;
 
     /**
+     * 分类名称
+     */
+    @Transient
+    private String className;
+
+    /**
      * 标签集合
      */
     @Transient
     private String tagIds;
+
 
 
     /**
@@ -177,90 +177,90 @@ public class Article extends AbstractBaseEntity {
     }
 
     /**
-     * 获取是否开启赞赏功能[0:是;1:否]
+     * 获取是否开启赞赏功能[1:是;0:否]
      *
-     * @return appreciation - 是否开启赞赏功能[0:是;1:否]
+     * @return appreciation - 是否开启赞赏功能[1:是;0:否]
      */
     public String getAppreciation() {
         return appreciation;
     }
 
     /**
-     * 设置是否开启赞赏功能[0:是;1:否]
+     * 设置是否开启赞赏功能[1:是;0:否]
      *
-     * @param appreciation 是否开启赞赏功能[0:是;1:否]
+     * @param appreciation 是否开启赞赏功能[1:是;0:否]
      */
     public void setAppreciation(String appreciation) {
         this.appreciation = appreciation == null ? null : appreciation.trim();
     }
 
     /**
-     * 获取转载声明是否开启[0:是;1:否]
+     * 获取转载声明是否开启[1:是;0:否]
      *
-     * @return share_statement - 转载声明是否开启[0:是;1:否]
+     * @return share_statement - 转载声明是否开启[1:是;0:否]
      */
     public String getShareStatement() {
         return shareStatement;
     }
 
     /**
-     * 设置转载声明是否开启[0:是;1:否]
+     * 设置转载声明是否开启[1:是;0:否]
      *
-     * @param shareStatement 转载声明是否开启[0:是;1:否]
+     * @param shareStatement 转载声明是否开启[1:是;0:否]
      */
     public void setShareStatement(String shareStatement) {
         this.shareStatement = shareStatement == null ? null : shareStatement.trim();
     }
 
     /**
-     * 获取是否可评论[0:是;1:否]
+     * 获取是否可评论[1:是;0:否]
      *
-     * @return is_comment - 是否可评论[0:是;1:否]
+     * @return is_comment - 是否可评论[1:是;0:否]
      */
     public String getIsComment() {
         return isComment;
     }
 
     /**
-     * 设置是否可评论[0:是;1:否]
+     * 设置是否可评论[1:是;0:否]
      *
-     * @param isComment 是否可评论[0:是;1:否]
+     * @param isComment 是否可评论[1:是;0:否]
      */
     public void setIsComment(String isComment) {
         this.isComment = isComment == null ? null : isComment.trim();
     }
 
     /**
-     * 获取发布[0:是;1:否]
+     * 获取发布[1:是;0:否]
      *
-     * @return is_issue - 发布[0:是;1:否]
+     * @return is_issue - 发布[1:是;0:否]
      */
     public String getIsIssue() {
         return isIssue;
     }
 
     /**
-     * 设置发布[0:是;1:否]
+     * 设置发布[1:是;0:否]
      *
-     * @param isIssue 发布[0:是;1:否]
+     * @param isIssue 发布[1:是;0:否]
      */
     public void setIsIssue(String isIssue) {
         this.isIssue = isIssue == null ? null : isIssue.trim();
     }
 
     /**
-     * 获取推荐[0:是;1:否]
+     * 获取推荐[1:是;0:否]
      *
-     * @return is_recommend - 推荐[0:是;1:否]
+     * @return is_recommend - 推荐[1:是;0:否]
      */
     public String getIsRecommend() {
         return isRecommend;
     }
 
     /**
-     * 设置推荐[0:是;1:否]
+     * 设置推荐[1:是;0:否]
      *
-     * @param isRecommend 推荐[0:是;1:否]
+     * @param isRecommend 推荐[1:是;0:否]
      */
     public void setIsRecommend(String isRecommend) {
         this.isRecommend = isRecommend == null ? null : isRecommend.trim();

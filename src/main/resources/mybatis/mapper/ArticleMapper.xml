@@ -25,7 +25,7 @@
 
   <select id="getArticlePageBySearch" resultType="com.github.fish.blog.api.entity.Article">
     SELECT a.id,a.article_name AS articleName,a.is_recommend AS isRecommend,
-      a.is_issue AS isIssue,a.update_date AS updateDate,cc.class_name AS className
+    a.is_issue AS isIssue,a.update_date AS updateDate,cc.class_name AS className
     FROM article a
     LEFT JOIN classification cc ON cc.id = a.class_id
     <where>

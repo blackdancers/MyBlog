@@ -121,25 +121,25 @@
             <div class="inline fields">
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" th:value="*{articleCover}"  id="isRecommend" name="isRecommend" class="hidden">
+                        <input type="checkbox" id="isRecommend" name="isRecommend" class="hidden" th:checked="${article.isRecommend}" th:value="${article.isRecommend}">
                         <label for="isRecommend">推荐</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" th:value="*{shareStatement}"  id="shareStatement" name="shareStatement" class="hidden">
+                        <input type="checkbox" id="shareStatement" name="shareStatement" class="hidden" th:checked="${article.shareStatement}" th:value="${article.shareStatement}">
                         <label for="shareStatement">转载</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" th:value="*{appreciation}"  id="appreciation" name="appreciation" class="hidden">
+                        <input type="checkbox" id="appreciation" name="appreciation" class="hidden" value="0">
                         <label for="appreciation">赞赏</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox"  th:value="*{isComment}" id="isComment" name="isComment" class="hidden">
+                        <input type="checkbox" id="isComment" name="isComment" class="hidden" value="0">
                         <label for="isComment">评论</label>
                     </div>
                 </div>
@@ -271,33 +271,11 @@
         $('[name=isIssue]').val(0);
         $('#blog-form').submit();
     });
-    // 把checkbox的默认值true/false转换成1/0
-    $('#isRecommend').on('click', function() {
-        var $check = $("[name=isRecommend]");
-        if ($check.prop('checked')){
-            $check.val(1);
-        }else {
-            $check.val(0);
-        }
-    });
-    $('#shareStatement').on('click', function() {
-        var $check = $("[name=shareStatement]");
-        if ($check.prop('checked')){
-            $check.val(1);
-        }else {
-            $check.val(0);
-        }
-    });
-    $('#appreciation').on('click', function() {
-        var $check = $("[name=appreciation]");
-        if ($check.prop('checked')){
-            $check.val(1);
-        }else {
-            $check.val(0);
-        }
-    });
-    $('#isComment').on('click', function() {
-        var $check = $("[name=isComment]");
+
+
+    $('.ui .checkbox .hidden').click(function () {
+        var $check = $(this);
+        console.log($check);
         if ($check.prop('checked')){
             $check.val(1);
         }else {
