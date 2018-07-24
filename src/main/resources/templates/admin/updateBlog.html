@@ -7,7 +7,7 @@
 </head>
 <body>
 <!--导航 nav-bar使用semantic-ui组件-->
-<nav th:replace="admin/_fragments :: menu(1)"  class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="admin/_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">Blog后台管理</h2>
@@ -50,7 +50,8 @@
 
 <div class="m-container m-padded-tb-big">
     <div class="ui container">
-        <form action="#" th:action="@{/admin/blog/update/{id}(id=*{id})}" th:object="${article}" id="blog-form" class="ui form" method="post">
+        <form action="#" th:action="@{/admin/blog/update/{id}(id=*{id})}" th:object="${article}" id="blog-form"
+              class="ui form" method="post">
 
             <input type="hidden" name="isIssue" th:value="*{isIssue}">
             <input type="hidden" name="id" th:value="*{id}">
@@ -72,7 +73,8 @@
             </div>
             <div class="field">
                 <div id="md-content" style="z-index: 1 !important">
-                    <textarea name="articleContent" th:text="*{articleContent}" id="articleContent" style="display: none" placeholder="输入博客内容..."></textarea>
+                    <textarea name="articleContent" th:text="*{articleContent}" id="articleContent"
+                              style="display: none" placeholder="输入博客内容..."></textarea>
                 </div>
             </div>
             <div class="two fields">
@@ -84,7 +86,8 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">分类</div>
                             <div class="menu">
-                                <div class="item" th:each="type : ${classList}" th:data-value="${type.id}" th:text="${type.className}"></div>
+                                <div class="item" th:each="type : ${classList}" th:data-value="${type.id}"
+                                     th:text="${type.className}"></div>
                                 <!--<div class="item" data-value="1">错误日志</div>-->
                                 <!--<div class="item" data-value="2">开发手册</div>-->
                             </div>
@@ -99,7 +102,8 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">标签</div>
                             <div class="menu">
-                                <div class="item" th:each="tag : ${tagsList}" th:data-value="${tag.id}" th:text="${tag.tagName}"></div>
+                                <div class="item" th:each="tag : ${tagsList}" th:data-value="${tag.id}"
+                                     th:text="${tag.tagName}"></div>
                                 <!--/*-->
                                 <div class="item" data-value="1">Java</div>
                                 <div class="item" data-value="2">NoSQL</div>
@@ -121,25 +125,29 @@
             <div class="inline fields">
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="isRecommend" name="isRecommend" class="hidden" th:checked="${article.isRecommend}" th:value="${article.isRecommend}">
+                        <input type="hidden" name="isRecommend" th:value="${article.isRecommend}"/>
+                        <input type="checkbox" id="isRecommend" th:checked="${article.isRecommend eq '1'}">
                         <label for="isRecommend">推荐</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="shareStatement" name="shareStatement" class="hidden" th:checked="${article.shareStatement}" th:value="${article.shareStatement}">
+                        <input type="hidden" name="shareStatement" th:value="${article.shareStatement}"/>
+                        <input type="checkbox" id="shareStatement" th:checked="${article.shareStatement eq '1'}">
                         <label for="shareStatement">转载</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="appreciation" name="appreciation" class="hidden" value="0">
+                        <input type="hidden" name="appreciation" th:value="${article.appreciation}"/>
+                        <input type="checkbox" id="appreciation" th:checked="${article.appreciation eq '1'}">
                         <label for="appreciation">赞赏</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="isComment" name="isComment" class="hidden" value="0">
+                        <input type="hidden" name="isComment" th:value="${article.isComment}"/>
+                        <input type="checkbox" id="isComment" th:checked="${article.isComment eq '1'}">
                         <label for="isComment">评论</label>
                     </div>
                 </div>
@@ -158,14 +166,15 @@
 </div>
 
 <!--底部-->
-<footer  th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
             <!--分成16份-->
             <div class="three wide column">
                 <div class="ui inverted link list">
                     <div class="item">
-                        <img src="/static/images/wechat-qr.jpg" th:src="@{/static/images/wechat-qr.jpg}" alt="QR-CODE" class="ui rounded image"
+                        <img src="/static/images/wechat-qr.jpg" th:src="@{/static/images/wechat-qr.jpg}" alt="QR-CODE"
+                             class="ui rounded image"
                              style="width: 100px">
                     </div>
                 </div>
@@ -201,22 +210,22 @@
 <script>
     /*MD编辑器*/
     var mdEditor;
-    $(function() {
+    $(function () {
         mdEditor = editormd("md-content", {
-            width   : "100%",
-            height  : 640,
-            syncScrolling : "single",
-            path    : "/plugins/editor.md/1.5/lib/"
+            width: "100%",
+            height: 640,
+            syncScrolling: "single",
+            path: "/plugins/editor.md/1.5/lib/"
         });
         /*
-        // or
-        testEditor = editormd({
-            id      : "test-editormd",
-            width   : "90%",
-            height  : 640,
-            path    : "../lib/"
-        });
-        */
+         // or
+         testEditor = editormd({
+         id      : "test-editormd",
+         width   : "90%",
+         height  : 640,
+         path    : "../lib/"
+         });
+         */
     });
 
     /*显示和隐藏菜单*/
@@ -230,33 +239,33 @@
     });
     /*输入框验证*/
     $(".ui.form").form({
-        fields:{
-            articleName:{
-                identifier:'articleName',
-                rules:[{
-                    type:'empty',
-                    prompt:'标题：不能为空'
+        fields: {
+            articleName: {
+                identifier: 'articleName',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题：不能为空'
                 }]
             },
-            articleContent:{
-                identifier:'articleContent',
-                rules:[{
-                    type:'empty',
-                    prompt:'文章内容不能为空'
+            articleContent: {
+                identifier: 'articleContent',
+                rules: [{
+                    type: 'empty',
+                    prompt: '文章内容不能为空'
                 }]
             },
-            classId:{
-                identifier:'classId',
-                rules:[{
-                    type:'empty',
-                    prompt:'分类不能为空'
+            classId: {
+                identifier: 'classId',
+                rules: [{
+                    type: 'empty',
+                    prompt: '分类不能为空'
                 }]
             },
-            articleCover:{
-                identifier:'articleCover',
-                rules:[{
-                    type:'empty',
-                    prompt:'文章封面不能为空'
+            articleCover: {
+                identifier: 'articleCover',
+                rules: [{
+                    type: 'empty',
+                    prompt: '文章封面不能为空'
                 }]
             }
         }
@@ -264,21 +273,44 @@
 
     /*发布和保存*/
     $('#save-btn').click(function () {
-        $('[name=isIssue]').val(1);
-        $('#blog-form').submit();
-    });
-    $('#issue-btn').click(function () {
         $('[name=isIssue]').val(0);
         $('#blog-form').submit();
     });
+    $('#issue-btn').click(function () {
+        $('[name=isIssue]').val(1);
+        $('#blog-form').submit();
+    });
 
-
-    $('.ui .checkbox .hidden').click(function () {
-        var $check = $(this);
-        console.log($check);
-        if ($check.prop('checked')){
+    // 把checkbox的默认值true/false转换成1/0
+    $('#isRecommend').on('click', function () {
+        var $check = $("[name=isRecommend]");
+        if ($(this).prop('checked')) {
             $check.val(1);
-        }else {
+        } else {
+            $check.val(0);
+        }
+    });
+    $('#shareStatement').on('click', function () {
+        var $check = $("[name=shareStatement]");
+        if ($(this).prop('checked')) {
+            $check.val(1);
+        } else {
+            $check.val(0);
+        }
+    });
+    $('#appreciation').on('click', function () {
+        var $check = $("[name=appreciation]");
+        if ($(this).prop('checked')) {
+            $check.val(1);
+        } else {
+            $check.val(0);
+        }
+    });
+    $('#isComment').on('click', function () {
+        var $check = $("[name=isComment]");
+        if ($(this).prop('checked')) {
+            $check.val(1);
+        } else {
             $check.val(0);
         }
     });

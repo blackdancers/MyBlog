@@ -133,7 +133,7 @@ public class BlogController {
         return "redirect:/admin/blog";
     }
 
-    @PostMapping("blog/delete/{id}")
+    @GetMapping("blog/delete/{id}")
     public String deleteBlog(@PathVariable Long id, RedirectAttributes attributes) {
         if (null != id){
             int res = articleService.deleteArticleById(id);
