@@ -24,4 +24,5 @@ public interface TagsService {
 
     public List<Tags> getTagsList();
 
+    public List<Tags> getTagsList(Pageable pageable);
 }

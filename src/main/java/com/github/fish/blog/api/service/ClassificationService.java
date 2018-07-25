@@ -26,4 +26,6 @@ public interface ClassificationService {
     public List<Classification> getClassificationList();
 
     public Boolean getClassificationByName(String className);
+
+    public List<Classification> getClassificationList(Pageable pageable);
 }

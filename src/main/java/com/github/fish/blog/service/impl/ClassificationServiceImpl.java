@@ -52,4 +52,9 @@ public class ClassificationServiceImpl implements ClassificationService {
     public Boolean getClassificationByName(String className) {
         return classificationBiz.getClassificationByName(className);
     }
+
+    @Override
+    public List<Classification> getClassificationList(Pageable pageable) {
+        return classificationBiz.getClassificationList(pageable);
+    }
 }

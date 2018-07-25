@@ -12,6 +12,10 @@ public class IConstInfo {
     public static final  String 	SECRET_KEY = "rc4fb1234";
     public static final  String 	DES_KEY = "DES_KEY";
 
+    public static final  String 	ZERO = "0";                             // 状态0
+    public static final  String 	ONE = "1";                              // 状态1
+    public static final  String 	TWO = "2";                              // 状态2
+
     public static final  String 	ISABLE = "0";                           // 状态OK
     public static final  String 	DISABLE = "1";                          // 状态不可用
     public static final  String 	ISDELETE = "1";                         // 删除状态

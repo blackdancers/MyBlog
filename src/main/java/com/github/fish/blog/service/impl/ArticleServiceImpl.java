@@ -29,6 +29,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public PageInfo<Article> getArticleListByPage(Pageable pageable) {
+        return articleBiz.getArticleListByPage(pageable);
+    }
+
+    @Override
     public Long addArticle(Article article) throws BaseBizException {
         return articleBiz.addArticle(article);
     }

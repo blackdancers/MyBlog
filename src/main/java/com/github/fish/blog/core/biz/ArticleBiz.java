@@ -43,6 +43,12 @@ public class ArticleBiz {
         return new PageInfo<>(dataList);
     }
 
+    public PageInfo<Article> getArticleListByPage(Pageable pageable) {
+        PageHelper.startPage(pageable.getPageNumber(),pageable.getPageSize());
+        List<Article> dataList = articleMapper.selectAll();
+        return new PageInfo<>(dataList);
+    }
+
     @Transactional(propagation = Propagation.REQUIRED)
     public Long addArticle(Article article) throws BaseBizException {
         article.setCreateDate(new Date());

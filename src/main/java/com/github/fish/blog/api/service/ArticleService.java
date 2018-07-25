@@ -5,12 +5,29 @@ import com.github.fish.common.exceptions.BaseBizException;
 import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 
 public interface ArticleService {
 
     public Article getArticleById(Long id);
 
     public PageInfo<Article> getArticlePageBySearch(Article article, Pageable pageable);
+
+    /**
+     * 推荐等文章查询
+     * @param article
+     * @param pageable
+     * @return
+     */
+    public List<Article> getArticleList(Article article, Pageable pageable);
+
+    /**
+     * 博客首页
+     * @param pageable
+     * @return
+     */
+    public PageInfo<Article> getArticleListByPage(Pageable pageable);
 
     public Long addArticle(Article article) throws BaseBizException;
 

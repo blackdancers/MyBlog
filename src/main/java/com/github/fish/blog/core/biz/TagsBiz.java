@@ -47,4 +47,9 @@ public class TagsBiz {
     public List<Tags> getTagsList() {
         return tagsMapper.selectAll();
     }
+
+    public List<Tags> getTagsList(Pageable pageable) {
+        PageHelper.startPage(pageable.getPageNumber(),pageable.getPageSize());
+        return tagsMapper.selectAll();
+    }
 }
