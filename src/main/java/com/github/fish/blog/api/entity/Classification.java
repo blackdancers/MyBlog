@@ -14,6 +14,13 @@ public class Classification extends AbstractBaseEntity {
     private String className;
 
     /**
+     * 关联文章数量
+     */
+    @Transient
+    private int classNum;
+
+
+    /**
      * 获取分类名称
      *
      * @return class_name - 分类名称
@@ -29,5 +36,13 @@ public class Classification extends AbstractBaseEntity {
      */
     public void setClassName(String className) {
         this.className = className == null ? null : className.trim();
+    }
+
+    public int getClassNum() {
+        return classNum;
+    }
+
+    public void setClassNum(int classNum) {
+        this.classNum = classNum;
     }
 }

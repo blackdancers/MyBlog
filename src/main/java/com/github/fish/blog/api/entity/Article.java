@@ -27,6 +27,12 @@ public class Article extends AbstractBaseEntity {
     private String articleFlag;
 
     /**
+     * 文章简介
+     */
+    @Column(name = "article_blurb")
+    private String articleBlurb;
+
+    /**
      * 浏览次数
      */
     private Integer views;
@@ -102,6 +108,17 @@ public class Article extends AbstractBaseEntity {
     @Transient
     private String tagIds;
 
+    /**
+     * 用户姓名
+     */
+    @Transient
+    private String userName;
+
+    /**
+     * 用户头像
+     */
+    @Transient
+    private String userAvatar;
 
 
     /**
@@ -156,6 +173,14 @@ public class Article extends AbstractBaseEntity {
      */
     public void setArticleFlag(String articleFlag) {
         this.articleFlag = articleFlag == null ? null : articleFlag.trim();
+    }
+
+    public String getArticleBlurb() {
+        return articleBlurb;
+    }
+
+    public void setArticleBlurb(String articleBlurb) {
+        this.articleBlurb = articleBlurb;
     }
 
     /**
@@ -370,5 +395,21 @@ public class Article extends AbstractBaseEntity {
 
     public void setTagIds(String tagIds) {
         this.tagIds = tagIds;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
     }
 }

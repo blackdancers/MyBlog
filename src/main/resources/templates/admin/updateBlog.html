@@ -122,6 +122,9 @@
                     <input type="text" name="articleCover" th:value="*{articleCover}" placeholder="封面图片地址">
                 </div>
             </div>
+            <div class="required field">
+                <textarea type="text" name="articleBlurb" th:text="*{articleBlurb}" placeholder="文章简介" maxlength="200"></textarea>
+            </div>
             <div class="inline fields">
                 <div class="field">
                     <div class="ui checkbox">

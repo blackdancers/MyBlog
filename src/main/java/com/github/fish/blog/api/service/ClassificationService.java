@@ -27,5 +27,5 @@ public interface ClassificationService {
 
     public Boolean getClassificationByName(String className);
 
-    public List<Classification> getClassificationList(Pageable pageable);
+    public List<Classification> getClassificationList(int num);
 }

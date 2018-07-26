@@ -9,4 +9,6 @@ public interface ArticleRefTagMapper extends Mapper<ArticleRefTag> {
     String getTagIdsByArticleId(@Param("articleId") Long articleId);
 
     int deleteTagsByArticleId(Long articleId);
+
+    int getArticleNumByTagId(@Param("tagId") Long tagId);
 }

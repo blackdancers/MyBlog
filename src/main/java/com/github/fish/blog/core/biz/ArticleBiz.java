@@ -43,9 +43,13 @@ public class ArticleBiz {
         return new PageInfo<>(dataList);
     }
 
+    public List<Article> getArticleList(Article article, int num) {
+        return articleMapper.getArticleList(article,num);
+    }
+
     public PageInfo<Article> getArticleListByPage(Pageable pageable) {
         PageHelper.startPage(pageable.getPageNumber(),pageable.getPageSize());
-        List<Article> dataList = articleMapper.selectAll();
+        List<Article> dataList = articleMapper.getArticleListByPage();
         return new PageInfo<>(dataList);
     }
 

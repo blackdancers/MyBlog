@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-
+import java.util.List;
 
 
 @Component("articleService")
@@ -26,6 +26,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public PageInfo<Article> getArticlePageBySearch(Article article, Pageable pageable) {
         return articleBiz.getArticlePageBySearch(article, pageable);
+    }
+
+    @Override
+    public List<Article> getArticleList(Article article, int num) {
+        return articleBiz.getArticleList(article, num);
     }
 
     @Override

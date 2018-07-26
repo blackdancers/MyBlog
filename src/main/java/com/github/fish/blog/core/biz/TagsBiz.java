@@ -1,6 +1,7 @@
 package com.github.fish.blog.core.biz;
 
 import com.github.fish.blog.api.entity.Tags;
+import com.github.fish.blog.core.dao.ArticleRefTagMapper;
 import com.github.fish.blog.core.dao.TagsMapper;
 import com.github.fish.common.exceptions.BaseBizException;
 import com.github.pagehelper.PageHelper;
@@ -17,6 +18,9 @@ public class TagsBiz {
 
     @Resource
     private TagsMapper tagsMapper;
+
+    @Resource
+    private ArticleRefTagMapper  articleRefTagMapper;
 
     public Long addTags(Tags tags) throws BaseBizException {
         tagsMapper.insert(tags);
@@ -48,8 +52,13 @@ public class TagsBiz {
         return tagsMapper.selectAll();
     }
 
-    public List<Tags> getTagsList(Pageable pageable) {
-        PageHelper.startPage(pageable.getPageNumber(),pageable.getPageSize());
-        return tagsMapper.selectAll();
+    public List<Tags> getTagsList(int num) {
+        List<Tags> tagsList = tagsMapper.getTagsList(num);
+
+        for (Tags tags:tagsList){
+            int count = articleRefTagMapper.getArticleNumByTagId(tags.getId());
+            tags.setTagNum(count);
+        }
+        return tagsList;
     }
 }

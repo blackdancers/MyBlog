@@ -5,7 +5,6 @@ import com.github.fish.blog.api.service.ClassificationService;
 import com.github.fish.blog.core.biz.ClassificationBiz;
 import com.github.fish.common.exceptions.BaseBizException;
 import com.github.pagehelper.PageInfo;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -54,7 +53,7 @@ public class ClassificationServiceImpl implements ClassificationService {
     }
 
     @Override
-    public List<Classification> getClassificationList(Pageable pageable) {
-        return classificationBiz.getClassificationList(pageable);
+    public List<Classification> getClassificationList(int num) {
+        return classificationBiz.getClassificationList(num);
     }
 }

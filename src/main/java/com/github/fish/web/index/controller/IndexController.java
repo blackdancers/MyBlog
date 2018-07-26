@@ -36,17 +36,17 @@ public class IndexController {
         PageInfo<Article> page = articleService.getArticleListByPage(pageable);
         model.addAttribute("page",page);
 
-        List<Classification> classList = classificationService.getClassificationList(pageable);
+        List<Classification> classList = classificationService.getClassificationList(IConstInfo.DEFAULT_NUM);
         model.addAttribute("classList",classList); //所属分类
 
-        List<Tags> tagsList = tagsService.getTagsList(pageable);
+        List<Tags> tagsList = tagsService.getTagsList(IConstInfo.DEFAULT_NUM);
         model.addAttribute("tagsList",tagsList); //所有标签
 
         //推荐博客
         Article article = new Article();
         article.setIsRecommend(IConstInfo.ONE);
-        List<Article> recommendBlogList = articleService.getArticleList(article,pageable);
-        model.addAttribute("page",page);
+        List<Article> recommendBlogList = articleService.getArticleList(article,IConstInfo.DEFAULT_NUM);
+        model.addAttribute("recommendBlogList",recommendBlogList);
         return "index";
     }
 

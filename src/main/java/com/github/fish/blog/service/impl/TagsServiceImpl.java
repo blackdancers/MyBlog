@@ -57,7 +57,7 @@ public class TagsServiceImpl implements TagsService {
     }
 
     @Override
-    public List<Tags> getTagsList(Pageable pageable) {
-        return tagsBiz.getTagsList(pageable);
+    public List<Tags> getTagsList(int num) {
+        return tagsBiz.getTagsList(num);
     }
 }

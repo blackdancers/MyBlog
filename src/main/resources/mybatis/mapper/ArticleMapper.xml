@@ -14,13 +14,14 @@
     <result column="is_recommend" jdbcType="CHAR" property="isRecommend" />
     <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent" />
     <result column="class_id" jdbcType="BIGINT" property="classId" />
+    <result column="article_blurb" jdbcType="VARCHAR" property="articleBlurb" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
   </resultMap>
   <sql id="Base_Column_List">
     id, article_name, article_cover, article_flag, views, appreciation, share_statement,
-    is_comment, is_issue, is_recommend,article_content, class_id, user_id, create_date, update_date
+    is_comment, is_issue, is_recommend,article_content, class_id,article_blurb, user_id, create_date, update_date
   </sql>
 
   <select id="getArticlePageBySearch" resultType="com.github.fish.blog.api.entity.Article">
@@ -42,8 +43,41 @@
     ORDER BY a.update_date DESC
   </select>
 
+
+  <select id="getArticleListByPage" resultType="com.github.fish.blog.api.entity.Article">
+    SELECT
+    a.id,
+    a.article_name articleName,
+    a.article_cover articleCover,
+    a.article_flag articleFlag,
+    a.views,
+    a.appreciation,
+    a.share_statement shareStatement,
+    a.is_comment isComment,
+    a.is_issue isIssue,
+    a.is_recommend isRecommend,
+    a.article_content articleContent,
+    a.class_id classId,
+    a.article_blurb articleBlurb,
+    a.user_id userId,
+    a.create_date createDate,
+    a.update_date updateDate,
+    su.user_name userName,
+    su.user_avatar userAvatar,
+    cc.class_name className
+    FROM article a
+    LEFT JOIN system_user su ON su.id = a.user_id
+    LEFT JOIN classification cc ON cc.id = a.class_id
+    ORDER BY a.update_date DESC
+  </select>
+
   <select id="getArticleByName" resultType="java.lang.Boolean">
     SELECT EXISTS(SELECT 1 FROM article WHERE article_name=#{articleName})
+  </select>
+
+  <select id="getArticleList" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    FROM article a WHERE a.is_recommend = #{article.isRecommend}  LIMIT #{num}
   </select>
 
 </mapper>

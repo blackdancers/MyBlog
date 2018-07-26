@@ -14,6 +14,13 @@ public class Tags extends AbstractBaseEntity {
     private String tagName;
 
     /**
+     * 关联文章数量
+     */
+    @Transient
+    private int tagNum;
+
+
+    /**
      * 获取标签名称
      *
      * @return tag_name - 标签名称
@@ -29,5 +36,13 @@ public class Tags extends AbstractBaseEntity {
      */
     public void setTagName(String tagName) {
         this.tagName = tagName == null ? null : tagName.trim();
+    }
+
+    public int getTagNum() {
+        return tagNum;
+    }
+
+    public void setTagNum(int tagNum) {
+        this.tagNum = tagNum;
     }
 }

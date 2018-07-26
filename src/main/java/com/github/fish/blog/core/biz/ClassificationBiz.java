@@ -68,8 +68,7 @@ public class ClassificationBiz {
         return classificationMapper.getClassificationByName(className);
     }
 
-    public List<Classification> getClassificationList(Pageable pageable) {
-        PageHelper.startPage(pageable.getPageNumber(),pageable.getPageSize());
-        return classificationMapper.selectAll();
+    public List<Classification> getClassificationList(int num) {
+        return classificationMapper.getClassificationList(num);
     }
 }

@@ -12,4 +12,12 @@
   <select id="getClassificationByName" resultType="java.lang.Boolean">
     SELECT EXISTS(SELECT 1 FROM classification WHERE class_name=#{className})
   </select>
+
+  <select id="getClassificationList" resultType="com.github.fish.blog.api.entity.Classification">
+    SELECT cc.id, cc.class_name className, (SELECT COUNT(t1.class_id)  FROM article t1 WHERE t1.class_id = cc.id ) classNum
+    FROM classification cc
+    LEFT JOIN article a ON a.class_id = cc.id
+    ORDER BY classNum DESC
+    LIMIT #{num}
+  </select>
 </mapper>

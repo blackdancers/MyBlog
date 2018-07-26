@@ -11,4 +11,8 @@ public interface ArticleMapper extends Mapper<Article> {
     List<Article> getArticlePageBySearch(@Param("article") Article article);
 
     Boolean getArticleByName(@Param("articleName") String articleName);
+
+    List<Article> getArticleList(@Param("article") Article article, @Param("num") int num);
+
+    List<Article> getArticleListByPage();
 }

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>博客首页</title>
+    <link rel="stylesheet" href="/static/css/semantic.min.css" th:href="@{/css/semantic.min.css}">
+    <link rel="stylesheet" href="/static/css/index.css" th:href="@{/css/index.css}">
 </head>
 <body>
 
@@ -46,7 +48,7 @@
                                 <h3 class="ui teal header">文章</h3>
                             </div>
                             <div class="right aligned column">
-                                共 <h3 class="ui orange header m-inline-block m-text-thin"> 14 </h3> 篇
+                                共 <h3 class="ui orange header m-inline-block m-text-thin" th:text="${page.total}"> 14 </h3> 篇
                             </div>
                         </div>
                     </div>
@@ -54,82 +56,48 @@
                     <div class="ui attached segment">
                         <!--文章1-->
                         <div class="ui padded vertical segment m-padded-tb-large">
-                            <div class="ui middle aligned mobile reversed stackable grid">
+                            <div class="ui middle aligned mobile reversed stackable grid"  th:each="article : ${page.list}">
                                 <div class="eleven wide column">
-                                    <h3 class="ui header">Lorem Ipsum... but for photos</h3>
-                                    <p class="m-text">最新的4.7.0版，收录了675个图标…如果你觉得本页图标太小...这里来看看。 如果你是名设计师，并且需要在Photoshop或Illustrator等其他桌面应用中使用，请访问 Font Awesome 矢量版</p>
+                                    <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${article.id})}" class="m-black" target="_blank" th:text="${article.articleName}">文章标题</a></h3>
+                                    <p class="m-text" th:text="${article.articleBlurb}">文章简介</p>
                                     <div class="ui grid">
                                         <div class="eleven wide column">
                                             <div class="ui mini horizontal link list">
                                                 <div class="item">
-                                                    <img src="https://picsum.photos/100/100?image=1005" alt="" class="ui avatar image">
-                                                    <div class="content"><a class="header">毒匠</a></div>
+                                                    <img src="https://picsum.photos/100/100?image=1005" th:src="@{${article.userAvatar}}" alt="" class="ui avatar image">
+                                                    <div class="content"><a class="header"  th:text="${article.userName}">毒匠</a></div>
                                                 </div>
                                                 <div class="item">
-                                                    <i class="calendar icon"></i>2018-06-21
+                                                    <i class="calendar icon"></i> <span th:text="${#dates.format(article.updateDate,'yyyy-MM-dd')}">时间</span>
                                                 </div>
                                                 <div class="item">
-                                                    <i class="eye icon"></i>2333
+                                                    <i class="eye icon"></i> <span th:text="${article.views}">浏览次数</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="right aligned five wide column">
-                                            <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">学习日记</a>
+                                            <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${article.className}">分类名称</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="five wide column">
                                     <!--图片-->
-                                    <a href="#" target="_blank">
-                                        <img src="https://picsum.photos/800/450/?blur" alt="" class="ui rounded image">
+                                    <a href="#" th:href="@{/blog/{id}(id=${article.id})}" target="_blank">
+                                        <img src="https://picsum.photos/800/450/?blur" alt="" class="ui rounded image" th:src="@{${article.articleCover}}">
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="ui padded vertical segment m-padded-tb-large">
-                            <div class="ui mobile reversed stackable grid">
-                                <div class="eleven wide column">
-                                    <h3 class="ui header">Lorem Ipsum... but for photos</h3>
-                                    <p class="m-text">最新的4.7.0版，收录了675个图标…如果你觉得本页图标太小...这里来看看。 如果你是名设计师，并且需要在Photoshop或Illustrator等其他桌面应用中使用，请访问 Font Awesome 矢量版</p>
-                                    <div class="ui grid">
-                                        <div class="eleven wide column">
-                                            <div class="ui mini horizontal link list">
-                                                <div class="item">
-                                                    <img src="https://picsum.photos/100/100?image=1005" alt="" class="ui avatar image">
-                                                    <div class="content"><a class="header">毒匠</a></div>
-                                                </div>
-                                                <div class="item">
-                                                    <i class="calendar icon"></i>2018-06-21
-                                                </div>
-                                                <div class="item">
-                                                    <i class="eye icon"></i>2333
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="right aligned five wide column">
-                                            <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">学习日记</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="five wide column">
-                                    <!--图片-->
-                                    <a href="#" target="_blank">
-                                        <img src="https://picsum.photos/800/450/?blur" alt="" class="ui rounded image">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                     <!--文章列表底部div.ui.bottom.attached.segment-->
-                    <div class="ui bottom attached segment">
+                    <div class="ui bottom attached segment" th:if="${page.pages} > 1">
                         <!--上下翻页-->
                         <div class="ui middle aligned two column grid">
                             <div class="column">
-                                <a href="#" class="ui teal basic button">上一页</a>
+                                <a href="#" class="ui teal basic button" th:href="@{/(page=${page.pageNum}-1)}" th:unless="${page.isFirstPage}">上一页</a>
                             </div>
                             <div class="right aligned column">
-                                <a href="#" class="ui teal button">下一页</a>
+                                <a href="#" class="ui teal basic button" th:href="@{/(page=${page.pageNum}+1)}" th:unless="${page.isLastPage}">下一页</a>
                             </div>
                         </div>
                     </div>
@@ -143,18 +111,13 @@
                                 <div class="column"><i class="icon idea"></i>分类</div>
                                 <!--居右放置:right aligned两个顺序不能颠倒-->
                                 <div class="column right aligned">
-                                    <a href="#" target="_blank">more <i class="icon angle double right"></i></a>
+                                    <a href="#" target="_blank" th:href="@{/classes}">more <i class="icon angle double right"></i></a>
                                 </div>
                             </div>
                         </div>
                         <div class="ui teal segment">
                             <div class="ui fluid vertical menu">
-                                <a href="#" class="item">学习日志1 <div class="ui teal basic left pointing label">13</div></a>
-                                <a href="#" class="item">学习日志2 <div class="ui teal basic left pointing label">13</div></a>
-                                <a href="#" class="item">学习日志3 <div class="ui teal basic left pointing label">13</div></a>
-                                <a href="#" class="item">学习日志4 <div class="ui teal basic left pointing label">13</div></a>
-                                <a href="#" class="item">学习日志5 <div class="ui teal basic left pointing label">13</div></a>
-                                <a href="#" class="item">学习日志6 <div class="ui teal basic left pointing label">13</div></a>
+                                <a href="#" th:href="@{/classes/{id}(id=*{classes.id})}" class="item" th:each="classes : ${classList}"> <span th:text="*{classes.className}">分类名称</span> <div class="ui teal basic left pointing label" th:text="*{classes.classNum}">文章数量</div></a>
                             </div>
                         </div>
                     </div>
@@ -165,65 +128,29 @@
                                 <div class="column"><i class="tags icon"></i>标签</div>
                                 <!--居右放置:right aligned两个顺序不能颠倒-->
                                 <div class="column right aligned">
-                                    <a href="#" target="_blank">more <i class="angle double right icon"></i></a>
+                                    <a href="#" target="_blank" th:href="@{/tags}">more <i class="angle double right icon"></i></a>
                                 </div>
                             </div>
                         </div>
                         <div class="ui teal segment">
-                            <a href="" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                方法论 <div class="detail">25</div>
-                            </a>
-                            <a href="" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                方法论 <div class="detail">25</div>
-                            </a>
-                            <a href="" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                方法论 <div class="detail">25</div>
-                            </a>
-                            <a href="" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                方法论 <div class="detail">25</div>
-                            </a>
-                            <a href="" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                方法论 <div class="detail">25</div>
-                            </a>
-                            <a href="" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                方法论 <div class="detail">25</div>
-                            </a>
-                            <a href="" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                方法论 <div class="detail">25</div>
-                            </a>
-                            <a href="" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                方法论 <div class="detail">25</div>
-                            </a>
+                            <a href="" target="_blank" th:href="@{/tags/{id}(id=*{tags.id})}" class="ui teal basic left pointing label m-margin-tb-tiny" th:each="tags : ${tagsList}"><span th:text="*{tags.tagName}">标签名称</span> <div class="detail" th:text="*{tags.tagNum}">文章数量</div></a>
                         </div>
                     </div>
 
                     <!--最新推荐卡片-->
+                    <div class="ui segments m-margin-top-large" th:unless="${#arrays.length(recommendBlogList) > 0}">
+                        <div class="ui secondary segment"><i class="bookmark icon"></i>最新推荐</div>
+                        <div class="ui segment" th:each="blog : ${recommendBlogList}"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black m-text-thin" th:text="${blog.className}">推荐文章标题</a></div>
+                    </div>
+
                     <div class="ui segments m-margin-top-large">
-                        <div class="ui secondary segment">
-                            <i class="bookmark icon"></i>最新推荐
-                        </div>
-                        <div class="ui segment">
-                            <a href="#" target="_blank" class="m-black m-text-thin">JavaScript原型链</a>
-                        </div>
-                        <div class="ui segment">
-                            <a href="#" target="_blank" class="m-black m-text-thin">JavaScript原型链</a>
-                        </div>
-                        <div class="ui segment">
-                            <a href="#" target="_blank" class="m-black m-text-thin">JavaScript原型链</a>
-                        </div>
-                        <div class="ui segment">
-                            <a href="#" target="_blank" class="m-black">JavaScript原型链</a>
-                        </div>
-                        <div class="ui segment">
-                            <a href="#" target="_blank" class="m-black">JavaScript原型链</a>
+                        <!--扫码卡片 -->
+                        <h4 class="ui horizontal divider header secondary segment">扫码关注我</h4>
+                        <div class="ui centered card segment" style="width: 12em">
+                            <img src="/static/images/wechat-qr.jpg" th:src="@{/images/wechat-qr.jpg}" alt="" class="ui rounded image">
                         </div>
                     </div>
 
-                    <!--扫码卡片 -->
-                    <h4 class="ui horizontal divider header m-margin-top-large">扫码关注我</h4>
-                    <div class="ui centered card" style="width: 12em">
-                        <img src="../static/images/wechat-qr.jpg" th:src="@{/images/wechat-qr.jpg}" alt="" class="ui rounded image">
-                    </div>
                 </div>
             </div>
         </div>

@@ -17,10 +17,10 @@ public interface ArticleService {
     /**
      * 推荐等文章查询
      * @param article
-     * @param pageable
+     * @param num
      * @return
      */
-    public List<Article> getArticleList(Article article, Pageable pageable);
+    public List<Article> getArticleList(Article article, int num);
 
     /**
      * 博客首页

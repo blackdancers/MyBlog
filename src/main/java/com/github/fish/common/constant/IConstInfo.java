@@ -15,6 +15,7 @@ public class IConstInfo {
     public static final  String 	ZERO = "0";                             // 状态0
     public static final  String 	ONE = "1";                              // 状态1
     public static final  String 	TWO = "2";                              // 状态2
+    public static final   	int     DEFAULT_NUM = 10;                       // 10条数据
 
     public static final  String 	ISABLE = "0";                           // 状态OK
     public static final  String 	DISABLE = "1";                          // 状态不可用
