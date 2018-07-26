@@ -25,4 +25,6 @@ public interface TagsService {
     public List<Tags> getTagsList();
 
     public List<Tags> getTagsList(int num);
+
+    public List<Tags> getTagsListByArticleId(Long articleId);
 }

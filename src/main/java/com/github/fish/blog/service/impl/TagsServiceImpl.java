@@ -60,4 +60,9 @@ public class TagsServiceImpl implements TagsService {
     public List<Tags> getTagsList(int num) {
         return tagsBiz.getTagsList(num);
     }
+
+    @Override
+    public List<Tags> getTagsListByArticleId(Long articleId) {
+        return null;
+    }
 }

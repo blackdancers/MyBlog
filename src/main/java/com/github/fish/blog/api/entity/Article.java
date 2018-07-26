@@ -120,6 +120,14 @@ public class Article extends AbstractBaseEntity {
     @Transient
     private String userAvatar;
 
+    /**
+     * 搜索内容
+     */
+    @Transient
+    private String keyWords;
+
+
+
 
     /**
      * 获取文章标题
@@ -411,5 +419,13 @@ public class Article extends AbstractBaseEntity {
 
     public void setUserAvatar(String userAvatar) {
         this.userAvatar = userAvatar;
+    }
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
     }
 }

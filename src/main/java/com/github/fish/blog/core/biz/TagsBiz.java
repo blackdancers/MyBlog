@@ -61,4 +61,8 @@ public class TagsBiz {
         }
         return tagsList;
     }
+
+    public List<Tags> getTagsListByArticleId(Long articleId) {
+        return articleRefTagMapper.getTagsListByArticleId(articleId);
+    }
 }

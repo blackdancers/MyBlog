@@ -18,6 +18,13 @@
     SELECT COUNT(art.tag_id) FROM article_ref_tag art WHERE art.tag_id=#{tagId};
   </select>
 
+  <select id="getTagsListByArticleId" resultType="com.github.fish.blog.api.entity.Tags">
+    SELECT t.id,t.tag_name tagName
+    FROM tags t
+    LEFT JOIN article_ref_tag art ON art.tag_id = t.id
+    WHERE art.article_id=#{articleId};
+  </select>
+
   <delete id="deleteTagsByArticleId">
     DELETE FROM article_ref_tag WHERE article_id=#{articleId}
   </delete>

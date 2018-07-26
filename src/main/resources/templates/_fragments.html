@@ -26,10 +26,12 @@
             <a href="#" th:href="@{/tags}" class="item m-item m-mobile-hide" th:classappend="${n==5} ? 'active'">   <i class="info icon"></i>About</a>
             <div class="right item m-item m-mobile-hide">
                 <!--div.ui.input-->
-                <div class="ui icon inverted transparent input">
-                    <input type="text" placeholder="Search">
-                    <i class="search link icon"></i>
-                </div>
+                <form action="#" th:action="@{/search}" target="_blank" method="post" name="search">
+                    <div class="ui icon inverted transparent input">
+                        <input type="text" name="keyWords" placeholder="Search" th:value="${keyWords}">
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -15,6 +15,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,7 +33,7 @@ public class IndexController {
     private TagsService tagsService;
 
     @GetMapping("")
-    public String blogIndex(@PageableDefault(size = 10, sort = {"updateDate"}, direction = Sort.Direction.DESC) Pageable pageable, Model model) {
+    public String indexBlogs(@PageableDefault(size = 10, sort = {"updateDate"}, direction = Sort.Direction.DESC) Pageable pageable, Model model) {
 
         //文章列表
         PageInfo<Article> page = articleService.getArticleListByPage(pageable);
@@ -49,5 +52,44 @@ public class IndexController {
         model.addAttribute("recommendBlogList",recommendBlogList);
         return "index";
     }
+
+    /**
+     * 查询文章标题或内容
+     * @param pageable
+     * @param keyWords
+     * @param model
+     * @return
+     */
+    @PostMapping("/search")
+    public String searchBolgs(@PageableDefault(size = 10, sort = {"updateDate"}, direction = Sort.Direction.DESC) Pageable pageable,
+                             @RequestParam String keyWords, Model model) {
+
+        //设置搜索内容
+        Article article = new Article();
+        article.setKeyWords(keyWords);
+        //文章列表
+        PageInfo<Article> page = articleService.getArticlePageBySearch(article,pageable);
+        model.addAttribute("page",page);
+        model.addAttribute("keyWords",keyWords); //查询参数
+        return "search";
+    }
+
+    @GetMapping("/blog/{id}")
+    public String blogDetail(@PathVariable("id") Long articleId, Model model) {
+
+        //文章列表
+        Article article = articleService.getArticleById(articleId);
+        model.addAttribute("article",article);
+
+        List<Tags> tagsList = tagsService.getTagsListByArticleId(articleId);
+        model.addAttribute("tagsList",tagsList); //所有标签
+        return "blog";
+    }
+
+
+
+
+
+
 
 }

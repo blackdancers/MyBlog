@@ -31,7 +31,8 @@ public class ArticleBiz {
 
 
     public Article getArticleById(Long id) {
-        Article article = articleMapper.selectByPrimaryKey(id);
+        //Article article = articleMapper.selectByPrimaryKey(id);
+        Article article = articleMapper.getArticleById(id);
         String tagsIds = articleRefTagMapper.getTagIdsByArticleId(id);
         article.setTagIds(tagsIds);
         return article;

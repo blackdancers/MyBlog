@@ -15,4 +15,6 @@ public interface ArticleMapper extends Mapper<Article> {
     List<Article> getArticleList(@Param("article") Article article, @Param("num") int num);
 
     List<Article> getArticleListByPage();
+
+    Article getArticleById(@Param("id") Long id);
 }

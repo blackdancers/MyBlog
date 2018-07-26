@@ -25,25 +25,73 @@
   </sql>
 
   <select id="getArticlePageBySearch" resultType="com.github.fish.blog.api.entity.Article">
-    SELECT a.id,a.article_name AS articleName,a.is_recommend AS isRecommend,
-    a.is_issue AS isIssue,a.update_date AS updateDate,cc.class_name AS className
+    SELECT
+    a.id,
+    a.article_name articleName,
+    a.article_cover articleCover,
+    a.article_flag articleFlag,
+    a.views,
+    a.appreciation,
+    a.share_statement shareStatement,
+    a.is_comment isComment,
+    a.is_issue isIssue,
+    a.is_recommend isRecommend,
+    a.article_content articleContent,
+    a.class_id classId,
+    a.article_blurb articleBlurb,
+    a.user_id userId,
+    a.create_date createDate,
+    a.update_date updateDate,
+    su.user_name userName,
+    su.user_avatar userAvatar,
+    cc.class_name className
     FROM article a
+    LEFT JOIN system_user su ON su.id = a.user_id
     LEFT JOIN classification cc ON cc.id = a.class_id
     <where>
       <if test="article.articleName != null and article.articleName != ''">
-        AND a.article_name LIKE CONCAT('%', #{article.articleName}, '%')
+        a.article_name LIKE CONCAT('%', #{article.articleName}, '%')
+      </if>
+      <if test="article.keyWords != null and article.keyWords != ''">
+        a.article_content LIKE CONCAT('%', #{article.keyWords}, '%') OR a.article_name LIKE CONCAT('%', #{article.keyWords}, '%')
       </if>
       <if test="article.classId != null and article.classId != ''">
-        AND a.class_id = #{article.classId}
+        a.class_id = #{article.classId}
       </if>
       <if test="article.isRecommend != null and article.isRecommend != ''">
-        AND a.is_recommend = #{article.isRecommend}
+        a.is_recommend = #{article.isRecommend}
       </if>
     </where>
     ORDER BY a.update_date DESC
   </select>
 
 
+  <select id="getArticleById" resultType="com.github.fish.blog.api.entity.Article">
+    SELECT
+    a.id,
+    a.article_name articleName,
+    a.article_cover articleCover,
+    a.article_flag articleFlag,
+    a.views,
+    a.appreciation,
+    a.share_statement shareStatement,
+    a.is_comment isComment,
+    a.is_issue isIssue,
+    a.is_recommend isRecommend,
+    a.article_content articleContent,
+    a.class_id classId,
+    a.article_blurb articleBlurb,
+    a.user_id userId,
+    a.create_date createDate,
+    a.update_date updateDate,
+    su.user_name userName,
+    su.user_avatar userAvatar,
+    cc.class_name className
+    FROM article a
+    LEFT JOIN system_user su ON su.id = a.user_id
+    LEFT JOIN classification cc ON cc.id = a.class_id
+    WHERE a.id = #{id}
+  </select>
   <select id="getArticleListByPage" resultType="com.github.fish.blog.api.entity.Article">
     SELECT
     a.id,
