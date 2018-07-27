@@ -70,9 +70,9 @@
             </div>
             <h2 class="ui center aligned header" th:text="${article.articleName}">文章标题</h2>
 
-            <div id="content" class="typo typo-selection js-toc-content m-padded-lr-responsive m-padded-tb" th:text="${article.articleContent}">
+            <div id="content" class="typo typo-selection js-toc-content m-padded-lr-responsive m-padded-tb" th:utext="${article.articleContent}">
 
-                <!--文章内容-->
+                <!--文章内容 使用th:text是转义文本内容，th:utext不转义-->
 
             </div>
 

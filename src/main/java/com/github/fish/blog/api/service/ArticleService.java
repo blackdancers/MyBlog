@@ -12,6 +12,15 @@ public interface ArticleService {
 
     public Article getArticleById(Long id);
 
+    /**
+     * markdown格式内容转成html格式
+     * @param id
+     * @return
+     */
+    public Article getArticleContentById(Long id);
+
+
+
     public PageInfo<Article> getArticlePageBySearch(Article article, Pageable pageable);
 
     /**

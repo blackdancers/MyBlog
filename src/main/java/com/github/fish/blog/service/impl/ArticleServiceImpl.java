@@ -24,6 +24,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public Article getArticleContentById(Long id) {
+        return articleBiz.getArticleContentById(id);
+    }
+
+    @Override
     public PageInfo<Article> getArticlePageBySearch(Article article, Pageable pageable) {
         return articleBiz.getArticlePageBySearch(article, pageable);
     }

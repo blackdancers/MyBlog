@@ -7,6 +7,7 @@ import com.github.fish.blog.core.dao.ArticleRefTagMapper;
 import com.github.fish.common.constant.IConstInfo;
 import com.github.fish.common.enums.Module;
 import com.github.fish.common.exceptions.BaseBizException;
+import com.github.fish.common.utils.MarkdownUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +36,19 @@ public class ArticleBiz {
         Article article = articleMapper.getArticleById(id);
         String tagsIds = articleRefTagMapper.getTagIdsByArticleId(id);
         article.setTagIds(tagsIds);
+        return article;
+    }
+
+    public Article getArticleContentById(Long id) {
+        Article article = articleMapper.getArticleById(id);
+        String tagsIds = articleRefTagMapper.getTagIdsByArticleId(id);
+        article.setTagIds(tagsIds);
+        //markdown格式内容转成html格式
+        String markdownContent = article.getArticleContent();
+        if (StringUtils.isNotBlank(markdownContent)){
+            String text = MarkdownUtil.markdownToHtmlExtensions(markdownContent);
+            article.setArticleContent(text);
+        }
         return article;
     }
 

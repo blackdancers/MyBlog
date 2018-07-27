@@ -78,7 +78,7 @@ public class IndexController {
     public String blogDetail(@PathVariable("id") Long articleId, Model model) {
 
         //文章列表
-        Article article = articleService.getArticleById(articleId);
+        Article article = articleService.getArticleContentById(articleId);
         model.addAttribute("article",article);
 
         List<Tags> tagsList = tagsService.getTagsListByArticleId(articleId);
