@@ -73,7 +73,7 @@
 
 		<!-- schema你的数据库，tableName表明，domainObjectName对应你的javabean类名，是否生成相应的example -->
 		<!-- ignoreColumn 表示忽略哪些列 -->
-		<table schema="myblog" tableName="article"
+		<table schema="myblog" tableName="comment"
 			enableCountByExample="false" 
 			enableUpdateByExample="false"
 			enableDeleteByExample="false" 

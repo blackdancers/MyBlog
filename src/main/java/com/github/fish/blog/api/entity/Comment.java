@@ -6,6 +6,18 @@ import javax.persistence.*;
 
 public class Comment extends AbstractBaseEntity {
     /**
+     * 文章ID
+     */
+    @Column(name = "article_id")
+    private Long articleId;
+
+    /**
+     * 评论父ID
+     */
+    @Column(name = "parent_comment_id")
+    private Long parentCommentId;
+
+    /**
      * 用户昵称
      */
     @Column(name = "nick_name")
@@ -38,6 +50,42 @@ public class Comment extends AbstractBaseEntity {
      */
     @Column(name = "comment_content")
     private String commentContent;
+
+    /**
+     * 获取文章ID
+     *
+     * @return article_id - 文章ID
+     */
+    public Long getArticleId() {
+        return articleId;
+    }
+
+    /**
+     * 设置文章ID
+     *
+     * @param articleId 文章ID
+     */
+    public void setArticleId(Long articleId) {
+        this.articleId = articleId;
+    }
+
+    /**
+     * 获取评论父ID
+     *
+     * @return parent_comment_id - 评论父ID
+     */
+    public Long getParentCommentId() {
+        return parentCommentId;
+    }
+
+    /**
+     * 设置评论父ID
+     *
+     * @param parentCommentId 评论父ID
+     */
+    public void setParentCommentId(Long parentCommentId) {
+        this.parentCommentId = parentCommentId;
+    }
 
     /**
      * 获取用户昵称

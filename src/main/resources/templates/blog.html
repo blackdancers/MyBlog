@@ -120,95 +120,105 @@
             </div>
         </div>
         <!--留言区域-->
-        <div id="comment-container" class="ui bottom attached segment">
-            <div class="ui teal segment">
-                <div class="ui comments">
-                    <h3 class="ui dividing header">Comments</h3>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="http://www.semantic-ui.cn/images/avatar/small/matt.jpg">
-                        </a>
-                        <div class="content">
-                            <a class="author">Matt</a>
-                            <div class="metadata">
-                                <span class="date">今天下午 5:42</span>
-                            </div>
-                            <div class="text">太赞了！</div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="http://www.semantic-ui.cn/images/avatar/small/elliot.jpg">
-                        </a>
-                        <div class="content">
-                            <a class="author">Elliot Fu</a>
-                            <div class="metadata">
-                                <span class="date">昨天上午12:30</span>
-                            </div>
-                            <div class="text">
-                                <p>這對我的研究是非常有用.謝謝!</p>
-                            </div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
+        <div class="ui bottom attached segment">
+            <div id="comment-container" class="ui teal segment">
+                <div th:fragment="commentList">
+
+                    <div class="ui threaded comments" style="max-width: 100%;">
+                        <h3 class="ui dividing header">Comments</h3>
+
+                        <div class="comment" th:each="comment : ${commentList}">
+                            <a class="avatar">
+                                <img th:src="@{${comment.avatar}}" src="http://www.semantic-ui.cn/images/avatar/small/matt.jpg">
+                            </a>
+                            <div class="content">
+                                <a class="author" th:text="${comment.nickName}">Matt</a>
+                                <div class="metadata">
+                                    <span class="date" th:text="${#dates.format(comment.createDate,'yyyy-MM-dd HH:mm:ss')}">今天下午 5:42</span>
+                                </div>
+                                <div class="text" th:text="${comment.commentContent}">太赞了！</div>
+                                <div class="actions">
+                                    <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickName}" onclick="reply(this);">Reply</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="comments">
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="http://www.semantic-ui.cn/images/avatar/small/jenny.jpg">
-                                </a>
-                                <div class="content">
-                                    <a class="author">Jenny Hess</a>
-                                    <div class="metadata">
-                                        <span class="date">刚刚</span>
+                        <!--/*-->
+
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="http://www.semantic-ui.cn/images/avatar/small/elliot.jpg">
+                            </a>
+                            <div class="content">
+                                <a class="author">Elliot Fu</a>
+                                <div class="metadata">
+                                    <span class="date">昨天上午12:30</span>
+                                </div>
+                                <div class="text">
+                                    <p>這對我的研究是非常有用.謝謝!</p>
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">Reply</a>
+                                </div>
+                            </div>
+                            <div class="comments">
+                                <div class="comment">
+                                    <a class="avatar">
+                                        <img src="http://www.semantic-ui.cn/images/avatar/small/jenny.jpg">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author">Jenny Hess</a>
+                                        <div class="metadata">
+                                            <span class="date">刚刚</span>
+                                        </div>
+                                        <div class="text">艾略特你永远是多么正确 :)</div>
+                                        <div class="actions">
+                                            <a class="reply">Reply</a>
+                                        </div>
                                     </div>
-                                    <div class="text">艾略特你永远是多么正确 :)</div>
-                                    <div class="actions">
-                                        <a class="reply">Reply</a>
-                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="comment">
+                            <a class="avatar"><img src="http://www.semantic-ui.cn/images/avatar/small/joe.jpg"></a>
+                            <div class="content">
+                                <a class="author">Joe Henderson</a>
+                                <div class="metadata">
+                                    <span class="date">5 天以前</span>
+                                </div>
+                                <div class="text">老兄，这太棒了。非常感谢。</div>
+                                <div class="actions">
+                                    <a class="reply">Reply</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--*/-->
+                    </div>
+                </div>
+            </div>
+            <!--输入留言区-->
+            <div id="comment-form" class="ui reply form">
+                <input type="hidden" name="articleId" th:value="${article.id}">
+                <input type="hidden" name="parentCommentId" value="-1" >
+                <div class="field">
+                    <textarea name="commentContent" placeholder="请输入评论内容..."></textarea>
+                </div>
+                <div class="fields">
+                    <div class="field m-mobile-wide-full m-margin-bottom-small">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="nickName" placeholder="昵称">
                         </div>
                     </div>
-                    <div class="comment">
-                        <a class="avatar"><img src="http://www.semantic-ui.cn/images/avatar/small/joe.jpg"></a>
-                        <div class="content">
-                            <a class="author">Joe Henderson</a>
-                            <div class="metadata">
-                                <span class="date">5 天以前</span>
-                            </div>
-                            <div class="text">老兄，这太棒了。非常感谢。</div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
-                            </div>
+                    <div class="field m-mobile-wide-full m-margin-bottom-small">
+                        <div class="ui left icon input">
+                            <i class="mail icon"></i>
+                            <input type="text" name="email" placeholder="邮箱">
                         </div>
                     </div>
-                    <!--输入留言区-->
-                    <div class="ui reply form">
-                        <div class="field">
-                            <textarea name="content" placeholder="请输入评论内容..."></textarea>
-                        </div>
-                        <div class="fields">
-                            <div class="field m-mobile-wide-full m-margin-bottom-small">
-                                <div class="ui left icon input">
-                                    <i class="user icon"></i>
-                                    <input type="text" name="nickname" placeholder="昵称">
-                                </div>
-                            </div>
-                            <div class="field m-mobile-wide-full m-margin-bottom-small">
-                                <div class="ui left icon input">
-                                    <i class="mail icon"></i>
-                                    <input type="text" name="email" placeholder="邮箱">
-                                </div>
-                            </div>
-                            <div class="field m-mobile-wide-full m-margin-bottom-small">
-                                <button class="ui teal button m-mobile-wide-full"><i class="icon edit"></i>发布</button>
-                                <!--<div class="ui blue labeled submit icon button"><i class="icon edit"></i> Add Reply </div>-->
-                            </div>
-                        </div>
+                    <div class="field m-mobile-wide-full m-margin-bottom-small">
+                        <button id="comment-btn" type="button" class="ui teal button m-mobile-wide-full"><i class="icon edit"></i>发布</button>
+                        <!--<div class="ui blue labeled submit icon button"><i class="icon edit"></i> Add Reply </div>-->
                     </div>
                 </div>
             </div>
@@ -277,6 +287,7 @@
 <!--/*/</th:block>/*/-->
 
 <script>
+
     /*显示和隐藏菜单*/
     $(".menu.toggle").click(function () {
         $(".m-item").toggleClass('m-mobile-hide');
@@ -340,7 +351,70 @@
             }
             console.log('Scrolled to waypoint!' + direction)
         }
-    })
+    });
+
+
+    function preCommentData() {
+        $("#comment-container").load(/*[[@{/comments}]]*/"/comments",{
+            "articleId":$("[name='articleId']").val(),
+            "parentCommentId":$("[name='parentCommentId']").val(),
+            "nickName":$("[name='nickName']").val(),
+            "email":$("[name='email']").val(),
+            "commentContent":$("[name='commentContent']").val()
+        },function (responseText, statusText, xhr) {
+            $(window).scrollTo($('#comment-container'),500);
+            clearContent();
+        });
+    }
+
+    function clearContent() {
+        $("[name=commentContent]").val('');
+        $("[name=parentCommentId]").val('-1');
+        $("[name='commentContent']").attr('placeholder',"请输入评论内容...");
+
+    }
+    $("#comment-btn").click(function () {
+      var foo = $(".ui.form").form('validate form');
+      if (foo){
+          preCommentData();
+      }
+    });
+
+
+    function reply(obj) {
+        var commentId = $(obj).data('commentid');
+        var nickName = $(obj).data('commentnickname');
+        $("[name='commentContent']").attr('placeholder',"@"+nickName).focus();
+        $("[name='parentCommentId']").val(commentId);
+        $(window).scrollTo($('#comment-form'),500);
+    }
+
+    /*输入框验证*/
+    $(".ui.form").form({
+        fields: {
+            nickName: {
+                identifier: 'nickName',
+                rules: [{
+                    type: 'empty',
+                    prompt: '用户昵称不能为空'
+                }]
+            },
+            email: {
+                identifier: 'email',
+                rules: [{
+                    type: 'empty',
+                    prompt: '邮箱不能为空'
+                }]
+            },
+            commentContent: {
+                identifier: 'commentContent',
+                rules: [{
+                    type: 'empty',
+                    prompt: '评论内容不能为空'
+                }]
+            }
+        }
+    });
 
 </script>
 </body>
