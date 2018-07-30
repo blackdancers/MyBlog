@@ -66,7 +66,10 @@
         <!--文章标题-->
         <div class="ui attached padded segment">
             <div class="ui right aligned basic segment">
-                <div class="ui orange basic label" th:text="${article.articleFlag}">原创</div>
+                <div class="ui orange basic label" th:if="${article.articleFlag} eq 1">原创</div>
+                <div class="ui orange basic label" th:if="${article.articleFlag} eq 2">转载</div>
+                <div class="ui orange basic label" th:if="${article.articleFlag} eq 3">翻译</div>
+                <div class="ui orange basic label" th:if="${article.articleFlag} eq 4">其他</div>
             </div>
             <h2 class="ui center aligned header" th:text="${article.articleName}">文章标题</h2>
 
@@ -225,7 +228,7 @@
     </div>
     <!--微信文章-->
     <div id="qrcode" class="ui wechat-content flowing popup transition hidden" style="width: 120px">
-        <!--<img src="static/images/wechat-qr.jpg" alt="" class="ui rounded bordered image" style="width: 120px">-->
+        <!--<img src="/static/images/wechat-qr.jpg" th:src="@{/images/wechat-qr.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">-->
     </div>
     <div class="ui toc-container flowing popup transition hidden" style="width: 250px !important;">
         <ol class="js-toc"></ol>
