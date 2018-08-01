@@ -2,6 +2,7 @@ package com.github.fish.blog.api.entity;
 
 import com.github.fish.common.entity.AbstractBaseEntity;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 public class Comment extends AbstractBaseEntity {
@@ -50,6 +51,14 @@ public class Comment extends AbstractBaseEntity {
      */
     @Column(name = "comment_content")
     private String commentContent;
+
+    /**
+     * 子级所有评论
+     */
+    @Transient
+    private List<Comment> subCommentList;
+
+
 
     /**
      * 获取文章ID
@@ -193,5 +202,13 @@ public class Comment extends AbstractBaseEntity {
      */
     public void setCommentContent(String commentContent) {
         this.commentContent = commentContent == null ? null : commentContent.trim();
+    }
+
+    public List<Comment> getSubCommentList() {
+        return subCommentList;
+    }
+
+    public void setSubCommentList(List<Comment> subCommentList) {
+        this.subCommentList = subCommentList;
     }
 }

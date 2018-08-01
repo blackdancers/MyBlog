@@ -132,11 +132,11 @@
                                 <img th:src="@{${comment.avatar}}" src="http://www.semantic-ui.cn/images/avatar/small/matt.jpg">
                             </a>
                             <div class="content">
-                                <a class="author" th:text="${comment.nickName}">Matt</a>
+                                <a class="author" th:text="${comment.nickName}">用户昵称</a>
                                 <div class="metadata">
-                                    <span class="date" th:text="${#dates.format(comment.createDate,'yyyy-MM-dd HH:mm:ss')}">今天下午 5:42</span>
+                                    <span class="date" th:text="${#dates.format(comment.createDate,'yyyy-MM-dd HH:mm:ss')}">评论时间</span>
                                 </div>
-                                <div class="text" th:text="${comment.commentContent}">太赞了！</div>
+                                <div class="text" th:text="${comment.commentContent}">评论内容</div>
                                 <div class="actions">
                                     <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickName}" onclick="reply(this);">Reply</a>
                                 </div>
@@ -353,6 +353,11 @@
         }
     });
 
+    /*初始化加载文章评论*/
+    $(function () {
+        alert("1111");
+        $("#comment-container").load(/*[[@{/comments/{articleId}(articleId=${article.id})}]]*/"/comments/1");
+    });
 
     function preCommentData() {
         $("#comment-container").load(/*[[@{/comments}]]*/"/comments",{
@@ -415,6 +420,8 @@
             }
         }
     });
+
+
 
 </script>
 </body>

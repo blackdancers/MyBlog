@@ -5,11 +5,13 @@ import com.github.fish.blog.core.dao.CommentMapper;
 import com.github.fish.common.constant.IConstInfo;
 import com.github.fish.common.enums.Module;
 import com.github.fish.common.exceptions.BaseBizException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,16 +22,43 @@ public class CommentBiz {
     private CommentMapper commentMapper;
 
     /**
-     *
      * @param articleId
      * @return
      */
     public List<Comment> getCommentListByArticleId(Long articleId) {
+        List<Comment> commentList = commentMapper.getCommentListByArticleId(articleId);
+
         return commentMapper.getCommentListByArticleId(articleId);
     }
 
     /**
+     * 循环每个顶级的评论节点
+     */
+    private List<Comment> eachComment(List<Comment> commentList) {
+        List<Comment> commentsView = new ArrayList<>();
+        for (Comment comment : commentList){
+            Comment c = new Comment();
+            BeanUtils.copyProperties(comment,c);
+            commentsView.add(c);
+        }
+        combineChildren(commentsView);
+        return commentsView;
+    }
+
+    /**
      *
+     * @param commentsView
+     */
+    private void combineChildren(List<Comment> commentsView) {
+        for (Comment comment : commentsView){
+            List<Comment> subCommentList = comment.getSubCommentList();
+            for (Comment subComment: subCommentList){
+
+            }
+        }
+    }
+
+    /**
      * @param comment
      * @return
      * @throws BaseBizException
