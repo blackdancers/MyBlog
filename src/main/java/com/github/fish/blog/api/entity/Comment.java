@@ -64,6 +64,12 @@ public class Comment extends AbstractBaseEntity {
 
 
     /**
+     * 管理员评论
+     */
+    @Column(name = "admin_comment")
+    private Boolean adminComment;
+
+    /**
      *  展示效果 一二级扁平的展示
      *  一级
      *   |
@@ -230,5 +236,13 @@ public class Comment extends AbstractBaseEntity {
 
     public void setParentComment(Comment parentComment) {
         this.parentComment = parentComment;
+    }
+
+    public Boolean getAdminComment() {
+        return adminComment;
+    }
+
+    public void setAdminComment(Boolean adminComment) {
+        this.adminComment = adminComment;
     }
 }

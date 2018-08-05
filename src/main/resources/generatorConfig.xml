@@ -42,7 +42,7 @@
 		<!-- java模型创建器，是必须要的元素 -->
 		<!-- 数据库表对应的model -->
 		<!-- targetProject的目录配置成本地机器的workspace -->
-		<javaModelGenerator targetPackage="com.github.fish.blog.api.entity" targetProject="E:\\git-local-repo\\code\\MyBlog\\src\\main\\java">
+		<javaModelGenerator targetPackage="com.github.fish.blog.api.entity" targetProject="D:\\git-local-repo\\code\\MyBlog\\src\\main\\java">
 			<property name="constructoromsd" value="false"/><!--  for MyBatis3/MyBatis3Simple 自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；-->
 			<property name="enableSubPackages" value="true" /><!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
 			<property name="trimStrings" value="true" /><!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
@@ -68,7 +68,7 @@
             3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
         	注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
     	-->
-		<javaClientGenerator targetPackage="com.github.fish.blog.core.dao" type="XMLMAPPER" targetProject="E:\\git-local-repo\\code\\MyBlog\\src\\main\\java" />
+		<javaClientGenerator targetPackage="com.github.fish.blog.core.dao" type="XMLMAPPER" targetProject="D:\\git-local-repo\\code\\MyBlog\\src\\main\\java" />
 
 
 		<!-- schema你的数据库，tableName表明，domainObjectName对应你的javabean类名，是否生成相应的example -->

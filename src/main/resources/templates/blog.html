@@ -132,7 +132,9 @@
                                 <img th:src="@{${comment.avatar}}" src="http://www.semantic-ui.cn/images/avatar/small/matt.jpg">
                             </a>
                             <div class="content">
-                                <a class="author" th:text="${comment.nickName}">用户昵称</a>
+                                <a class="author"> <span th:text="${comment.nickName}">用户昵称</span>
+                                    <div th:if="${comment.adminComment}" class="ui mini basic teal left pointing label m-padded-mini">博主</div>
+                                </a>
                                 <div class="metadata">
                                     <span class="date" th:text="${#dates.format(comment.createDate,'yyyy-MM-dd HH:mm:ss')}">评论时间</span>
                                 </div>
@@ -148,7 +150,10 @@
                                         <img th:src="@{${reply.avatar}}" src="http://www.semantic-ui.cn/images/avatar/small/matt.jpg">
                                     </a>
                                     <div class="content">
-                                        <a class="author"><span th:text="${reply.nickName}">二级评论用户昵称</span>&nbsp;<span th:if="${reply.parentComment}" th:text="|@${reply.parentComment.nickName}|" class="m-teal"> @ 一级用户</span>
+                                        <a class="author">
+                                            <span th:text="${reply.nickName}">二级评论用户昵称</span>
+                                            <div th:if="${reply.adminComment}" class="ui mini basic teal left pointing label m-padded-mini">博主</div>
+                                            <span th:if="${reply.parentComment}" th:text="|@${reply.parentComment.nickName}|" class="m-teal">@一级用户</span>
                                             <!--th:if="${reply.parentComment}" th:text="|@ ${reply.parentComment.nickName}|" class="m-teal"-->
                                         </a>
                                         <div class="metadata">
@@ -210,7 +215,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!--*/-->
                     </div>
                 </div>
@@ -384,8 +388,10 @@
             "nickName":$("[name='nickName']").val(),
             "email":$("[name='email']").val(),
             "commentContent":$("[name='commentContent']").val()
-        },function (responseText, statusText, xhr) {
-            $(window).scrollTo($('#comment-container'),500);
+        },function (responseTxt, statusTxt, xhr) {
+            //alert(statusTxt);
+            //console.log(responseTxt);
+            //$(window).scrollTo($('#comment-container'),500);
             clearContent();
         });
     }

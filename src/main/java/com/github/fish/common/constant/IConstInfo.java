@@ -27,7 +27,7 @@ public class IConstInfo {
     public static final  Integer    EXCEPTION_TYPE_BUSINESS = 1;            // 业务异常 ....
     public static final  Integer    EXCEPTION_TYPE_FILE_UPLOAD = 4;         // 文件上传异常
 
-    public static final  String 	CURRENT_USER = "systemUser";           // 删除状态
+    public static final  String 	CURRENT_USER = "systemUser";           //
 
 
 

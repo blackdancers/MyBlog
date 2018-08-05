@@ -1,81 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.fish.blog.core.dao.CommentMapper">
+
     <resultMap id="BaseResultMap" type="com.github.fish.blog.api.entity.Comment">
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="article_id" jdbcType="BIGINT" property="articleId"/>
-        <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId"/>
-        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
-        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
-        <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="comment_content" jdbcType="LONGVARCHAR" property="commentContent"/>
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="article_id" jdbcType="BIGINT" property="articleId" />
+        <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId" />
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+        <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="comment_content" jdbcType="LONGVARCHAR" property="commentContent" />
+        <result column="admin_comment" jdbcType="BIT" property="adminComment" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
     </resultMap>
 
     <resultMap id="ExtResultMap" type="com.github.fish.blog.api.entity.Comment">
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="article_id" jdbcType="BIGINT" property="articleId"/>
-        <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId"/>
-        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
-        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
-        <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="comment_content" jdbcType="LONGVARCHAR" property="commentContent"/>
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
-        <association property="parentComment" column="parent_comment_id" select="com.github.fish.blog.core.dao.CommentMapper.getParentCommentListByParentCommentId">
-            <id column="id" jdbcType="BIGINT" property="id"/>
-            <result column="article_id" jdbcType="BIGINT" property="articleId"/>
-            <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId"/>
-            <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
-            <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
-            <result column="email" jdbcType="VARCHAR" property="email"/>
-            <result column="comment_content" jdbcType="LONGVARCHAR" property="commentContent"/>
-            <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-            <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="article_id" jdbcType="BIGINT" property="articleId" />
+        <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId" />
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+        <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="comment_content" jdbcType="LONGVARCHAR" property="commentContent" />
+        <result column="admin_comment" jdbcType="BIT" property="adminComment" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+        <association column="parent_comment_id" property="parentComment" select="com.github.fish.blog.core.dao.CommentMapper.getParentCommentListByParentCommentId">
+            <id column="id" jdbcType="BIGINT" property="id" />
+            <result column="article_id" jdbcType="BIGINT" property="articleId" />
+            <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId" />
+            <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+            <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+            <result column="email" jdbcType="VARCHAR" property="email" />
+            <result column="comment_content" jdbcType="LONGVARCHAR" property="commentContent" />
+            <result column="admin_comment" jdbcType="BIT" property="adminComment" />
+            <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+            <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
         </association>
-        <collection property="subCommentList" column="id" select="com.github.fish.blog.core.dao.CommentMapper.getSubCommentListByCommentId"></collection>
+        <collection column="id" property="subCommentList" select="com.github.fish.blog.core.dao.CommentMapper.getSubCommentListByCommentId" />
     </resultMap>
 
     <resultMap id="parentResultMap" type="com.github.fish.blog.api.entity.Comment">
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="article_id" jdbcType="BIGINT" property="articleId"/>
-        <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId"/>
-        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
-        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
-        <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="comment_content" jdbcType="LONGVARCHAR" property="commentContent"/>
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
-        <association property="parentComment" column="parent_comment_id" select="com.github.fish.blog.core.dao.CommentMapper.getParentCommentListByParentCommentId">
-            <id column="id" jdbcType="BIGINT" property="id"/>
-            <result column="article_id" jdbcType="BIGINT" property="articleId"/>
-            <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId"/>
-            <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
-            <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
-            <result column="email" jdbcType="VARCHAR" property="email"/>
-            <result column="comment_content" jdbcType="LONGVARCHAR" property="commentContent"/>
-            <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-            <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="article_id" jdbcType="BIGINT" property="articleId" />
+        <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId" />
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+        <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="comment_content" jdbcType="LONGVARCHAR" property="commentContent" />
+        <result column="admin_comment" jdbcType="BIT" property="adminComment" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+        <association column="parent_comment_id" property="parentComment" select="com.github.fish.blog.core.dao.CommentMapper.getParentCommentListByParentCommentId">
+            <id column="id" jdbcType="BIGINT" property="id" />
+            <result column="article_id" jdbcType="BIGINT" property="articleId" />
+            <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId" />
+            <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+            <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+            <result column="email" jdbcType="VARCHAR" property="email" />
+            <result column="comment_content" jdbcType="LONGVARCHAR" property="commentContent" />
+            <result column="admin_comment" jdbcType="BIT" property="adminComment" />
+            <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+            <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
         </association>
     </resultMap>
 
 
     <sql id="Base_Column_List">
-        id, article_id, parent_comment_id, nick_name, avatar, email,comment_content, create_date, update_date
+        id, article_id, parent_comment_id, nick_name, avatar, email,comment_content,admin_comment, create_date, update_date
     </sql>
     <select id="getCommentListByArticleId" resultMap="ExtResultMap">
-        SELECT <include refid="Base_Column_List"/>
+        SELECT <include refid="Base_Column_List" />
         FROM comment WHERE article_id = #{articleId} AND parent_comment_id IS NULL
+        ORDER BY create_date ASC
     </select>
 
     <select id="getSubCommentListByCommentId" resultMap="parentResultMap">
-        SELECT <include refid="Base_Column_List"/>
+        SELECT <include refid="Base_Column_List" />
         FROM comment WHERE parent_comment_id = #{commentId}
     </select>
 
     <select id="getParentCommentListByParentCommentId" resultMap="BaseResultMap">
-        SELECT <include refid="Base_Column_List"/>
+        SELECT <include refid="Base_Column_List" />
         FROM comment WHERE id = #{parentCommentId}
     </select>
 
