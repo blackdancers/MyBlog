@@ -230,13 +230,13 @@
                     <div class="field m-mobile-wide-full m-margin-bottom-small">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input type="text" name="nickName" placeholder="昵称">
+                            <input type="text" name="nickName" placeholder="昵称" th:value="${session.systemUser}!= null ? ${session.systemUser.userName}">
                         </div>
                     </div>
                     <div class="field m-mobile-wide-full m-margin-bottom-small">
                         <div class="ui left icon input">
                             <i class="mail icon"></i>
-                            <input type="text" name="email" placeholder="邮箱">
+                            <input type="text" name="email" placeholder="邮箱" th:value="${session.systemUser}!= null ? ${session.systemUser.userEmail}">
                         </div>
                     </div>
                     <div class="field m-mobile-wide-full m-margin-bottom-small">
