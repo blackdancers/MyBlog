@@ -7,5 +7,13 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 
 public interface CommentMapper extends Mapper<Comment> {
+
     List<Comment> getCommentListByArticleId(@Param("articleId") Long articleId);
+
+    //根据自己的ID获取子级的评论
+    List<Comment> getSubCommentListByCommentId(@Param("commentId") Long commentId);
+
+    List<Comment> getParentCommentListByParentCommentId(@Param("parentCommentId") Long parentCommentId);
+
+
 }

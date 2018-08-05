@@ -139,7 +139,9 @@ body{
 .m-black{
     color: #333333 !important;
 }
-
+.m-teal{
+    color: #00B5AD !important;
+}
 /*------positon-----*/
 
 .m-fixed {

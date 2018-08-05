@@ -141,9 +141,28 @@
                                     <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickName}" onclick="reply(this);">Reply</a>
                                 </div>
                             </div>
+                            <!--嵌套评论-->
+                            <div class="comments" th:if="${#arrays.length(comment.subCommentList)}>0">
+                                <div class="comment" th:each="reply : ${comment.subCommentList}">
+                                    <a class="avatar">
+                                        <img th:src="@{${reply.avatar}}" src="http://www.semantic-ui.cn/images/avatar/small/matt.jpg">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author"><span th:text="${reply.nickName}">二级评论用户昵称</span>&nbsp;<span th:if="${reply.parentComment}" th:text="|@${reply.parentComment.nickName}|" class="m-teal"> @ 一级用户</span>
+                                            <!--th:if="${reply.parentComment}" th:text="|@ ${reply.parentComment.nickName}|" class="m-teal"-->
+                                        </a>
+                                        <div class="metadata">
+                                            <span class="date" th:text="${#dates.format(reply.createDate,'yyyy-MM-dd HH:mm:ss')}">评论时间</span>
+                                        </div>
+                                        <div class="text" th:text="${reply.commentContent}">评论内容</div>
+                                        <div class="actions">
+                                            <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickName}" onclick="reply(this);">Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!--/*-->
-
                         <div class="comment">
                             <a class="avatar">
                                 <img src="http://www.semantic-ui.cn/images/avatar/small/elliot.jpg">
@@ -355,7 +374,6 @@
 
     /*初始化加载文章评论*/
     $(function () {
-        alert("1111");
         $("#comment-container").load(/*[[@{/comments/{articleId}(articleId=${article.id})}]]*/"/comments/1");
     });
 

@@ -59,6 +59,18 @@ public class Comment extends AbstractBaseEntity {
     private List<Comment> subCommentList;
 
 
+    @Transient
+    private Comment parentComment;
+
+
+    /**
+     *  展示效果 一二级扁平的展示
+     *  一级
+     *   |
+     *   |-- 所有二级
+     *
+     *
+     */
 
     /**
      * 获取文章ID
@@ -210,5 +222,13 @@ public class Comment extends AbstractBaseEntity {
 
     public void setSubCommentList(List<Comment> subCommentList) {
         this.subCommentList = subCommentList;
+    }
+
+    public Comment getParentComment() {
+        return parentComment;
+    }
+
+    public void setParentComment(Comment parentComment) {
+        this.parentComment = parentComment;
     }
 }
