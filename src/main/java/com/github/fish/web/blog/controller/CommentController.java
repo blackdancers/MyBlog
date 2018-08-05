@@ -32,7 +32,6 @@ public class CommentController {
     private String avatar;
 
     /**
-     *
      * @param articleId
      * @param model
      * @return
@@ -40,13 +39,14 @@ public class CommentController {
     @GetMapping("/comments/{articleId}")
     public String commentList(@PathVariable Long articleId, Model model) {
         List<Comment> commentList = commentService.getCommentListByArticleId(articleId);
-        model.addAttribute("commentList",commentList);
+        model.addAttribute("commentList", commentList);
         return "blog :: commentList";
     }
 
 
     /**
      * 发表评论
+     *
      * @param comment
      * @return
      */
@@ -54,17 +54,15 @@ public class CommentController {
     public String postComment(Comment comment, HttpSession session) {
         SystemUser systemUser = (SystemUser) session.getAttribute("systemUser");
         Article article = articleService.getArticleById(comment.getArticleId());
-        if(null != article && comment.getArticleId().equals(article.getId())){
+        if (null != article && comment.getArticleId().equals(article.getId())) {
             comment.setAvatar(avatar);
-            if (null != systemUser){
+            if (null != systemUser) {
                 comment.setAdminComment(true);
                 comment.setAvatar(systemUser.getUserAvatar());
                 comment.setNickName(systemUser.getUserName());
             }
             commentService.saveComment(comment);
         }
-        return "redirect:/comments/"+comment.getArticleId();
+        return "redirect:/comments/" + comment.getArticleId();
     }
-
-
 }
