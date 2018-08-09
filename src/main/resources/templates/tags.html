@@ -1,35 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{:: title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>标签页</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-    <link rel="stylesheet" href="../static/css/index.css">
 </head>
 <body>
 <!--导航 nav-bar使用semantic-ui组件-->
-<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
-    <div class="ui container">
-        <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">Blog</h2>
-            <a href="#" class="item m-item m-mobile-hide"><i class="mini home icon"></i> 首页</a>
-            <a href="#" class="item m-item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
-            <a href="#" class="active item m-item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
-            <a href="#" class="item m-item m-mobile-hide"><i class="mini clone icon"></i>归档</a>
-            <a href="#" class="item m-item m-mobile-hide"><i class="mini info icon"></i>About</a>
-            <div class="right item m-item m-mobile-hide">
-                <!--div.ui.input-->
-                <div class="ui icon inverted transparent input">
-                    <input type="text" placeholder="Search">
-                    <i class="search link icon"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
+<nav th:replace="_fragments :: menu(3)"  class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
 </nav>
 
 <div class="m-container-small m-padded-tb-big">
@@ -38,10 +16,10 @@
         <div class="ui top attached segment">
             <div class="ui middle aligned two column grid">
                 <div class="column">
-                    <h3 class="ui teal header">分类</h3>
+                    <h3 class="ui teal header">标签</h3>
                 </div>
                 <div class="right aligned column">
-                    共 <h3 class="ui orange header m-inline-block m-text-thin"> 14 </h3> 个
+                    共 <h3 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(tagsList)}"> 标签数量 </h3> 个
                 </div>
             </div>
         </div>
@@ -51,9 +29,12 @@
                 <a href="#" class="ui basic teal button">思想和感悟</a>
                 <div class="ui basic teal left pointing label">33</div>
             </div>-->
-            <a href="#" class="ui teal basic left pointing label large m-margin-tb-tiny">
-                思想和感悟 <div class="detail">33</div>
+
+            <a href="#" th:href="@{/tag/{id}(id=${tag.id})}"   class="ui basic left pointing label large m-margin-tb-tiny" th:classappend="${tag.id == activeId} ? 'teal'" th:each="tag : ${tagsList}">
+                <span th:text="${tag.tagName}">思想和感悟</span>
+                <div class="detail" th:text="${tag.tagNum}">33</div>
             </a>
+            <!--/*-->
             <a href="#" class="ui basic left pointing label large m-margin-tb-tiny">
                 思想和感悟 <div class="detail">33</div>
             </a>
@@ -84,327 +65,66 @@
             <a href="#" class="ui basic left pointing label large m-margin-tb-tiny">
                 思想和感悟 <div class="detail">33</div>
             </a>
+            <!--*/-->
         </div>
         <!--分类对应的博客列表 attached-->
         <div class="ui top attached teal segment">
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-cls">
-                <div class="ui mobile reversed stackable grid">
+            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-cls" th:each="article : ${page.list}">
+                <div class="ui mobile reversed stackable grid" >
                     <div class="eleven wide column">
-                        <h3 class="ui header">Lorem Ipsum... but for photos</h3>
-                        <p class="m-text">最新的4.7.0版，收录了675个图标…如果你觉得本页图标太小...这里来看看。 如果你是名设计师，并且需要在Photoshop或Illustrator等其他桌面应用中使用，请访问 Font Awesome 矢量版</p>
-                        <div class="ui stackable grid">
-                            <div class="row">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?image=1005" alt="" class="ui avatar image">
-                                            <div class="content"><a class="header">毒匠</a></div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calendar icon"></i>2018-06-21
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i>2333
-                                        </div>
+                        <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${article.id})}" class="m-black" target="_blank" th:text="${article.articleName}">文章标题</a></h3>
+                        <p class="m-text" th:text="${article.articleBlurb}">文章简介</p>
+                        <div class="ui grid">
+                            <div class="eleven wide column">
+                                <div class="ui mini horizontal link list">
+                                    <div class="item">
+                                        <img src="https://picsum.photos/100/100?image=1005" th:src="@{${article.userAvatar}}" alt="" class="ui avatar image">
+                                        <div class="content"><a class="header"  th:text="${article.userName}">毒匠</a></div>
+                                    </div>
+                                    <div class="item">
+                                        <i class="calendar icon"></i> <span th:text="${#dates.format(article.updateDate,'yyyy-MM-dd')}">时间</span>
+                                    </div>
+                                    <div class="item">
+                                        <i class="eye icon"></i> <span th:text="${article.views}">浏览次数</span>
                                     </div>
                                 </div>
-                                <div class="right aligned five wide column">
-                                    <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">思想和感悟</a>
-                                </div>
+                            </div>
+                            <div class="right aligned five wide column">
+                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${article.className}">分类名称</a>
                             </div>
                             <div class="row">
                                 <div class="column">
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">思想和感悟</a>
+                                    <a href="#" th:href="@{/tag/{id}(id=${tag2.id})}" th:each="tag2 : ${article.tagsList}" class="ui basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin" th:classappend="${tag2.id == activeId} ? 'blue'" >
+                                        <span th:text="${tag2.tagName}">思想和感悟</span>
+                                    </a>
+                                    <!--/*-->
                                     <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hive</a>
                                     <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hadoop YRAN</a>
                                     <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">JVM</a>
+                                    <!--*/-->
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="five wide column">
                         <!--图片-->
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/800/450/?blur" alt="" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-cls">
-                <div class="ui mobile reversed stackable grid">
-                    <div class="eleven wide column">
-                        <h3 class="ui header">Lorem Ipsum... but for photos</h3>
-                        <p class="m-text">最新的4.7.0版，收录了675个图标…如果你觉得本页图标太小...这里来看看。 如果你是名设计师，并且需要在Photoshop或Illustrator等其他桌面应用中使用，请访问 Font Awesome 矢量版</p>
-                        <div class="ui stackable grid">
-                            <div class="row">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?image=1005" alt="" class="ui avatar image">
-                                            <div class="content"><a class="header">毒匠</a></div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calendar icon"></i>2018-06-21
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i>2333
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="right aligned five wide column">
-                                    <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">思想和感悟</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">思想和感悟</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hive</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hadoop YRAN</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">JVM</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="five wide column">
-                        <!--图片-->
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/800/450/?blur" alt="" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-cls">
-                <div class="ui mobile reversed stackable grid">
-                    <div class="eleven wide column">
-                        <h3 class="ui header">Lorem Ipsum... but for photos</h3>
-                        <p class="m-text">最新的4.7.0版，收录了675个图标…如果你觉得本页图标太小...这里来看看。 如果你是名设计师，并且需要在Photoshop或Illustrator等其他桌面应用中使用，请访问 Font Awesome 矢量版</p>
-                        <div class="ui stackable grid">
-                            <div class="row">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?image=1005" alt="" class="ui avatar image">
-                                            <div class="content"><a class="header">毒匠</a></div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calendar icon"></i>2018-06-21
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i>2333
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="right aligned five wide column">
-                                    <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">思想和感悟</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">思想和感悟</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hive</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hadoop YRAN</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">JVM</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="five wide column">
-                        <!--图片-->
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/800/450/?blur" alt="" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-cls">
-                <div class="ui mobile reversed stackable grid">
-                    <div class="eleven wide column">
-                        <h3 class="ui header">Lorem Ipsum... but for photos</h3>
-                        <p class="m-text">最新的4.7.0版，收录了675个图标…如果你觉得本页图标太小...这里来看看。 如果你是名设计师，并且需要在Photoshop或Illustrator等其他桌面应用中使用，请访问 Font Awesome 矢量版</p>
-                        <div class="ui stackable grid">
-                            <div class="row">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?image=1005" alt="" class="ui avatar image">
-                                            <div class="content"><a class="header">毒匠</a></div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calendar icon"></i>2018-06-21
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i>2333
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="right aligned five wide column">
-                                    <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">思想和感悟</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">思想和感悟</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hive</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hadoop YRAN</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">JVM</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="five wide column">
-                        <!--图片-->
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/800/450/?blur" alt="" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-cls">
-                <div class="ui mobile reversed stackable grid">
-                    <div class="eleven wide column">
-                        <h3 class="ui header">Lorem Ipsum... but for photos</h3>
-                        <p class="m-text">最新的4.7.0版，收录了675个图标…如果你觉得本页图标太小...这里来看看。 如果你是名设计师，并且需要在Photoshop或Illustrator等其他桌面应用中使用，请访问 Font Awesome 矢量版</p>
-                        <div class="ui stackable grid">
-                            <div class="row">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?image=1005" alt="" class="ui avatar image">
-                                            <div class="content"><a class="header">毒匠</a></div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calendar icon"></i>2018-06-21
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i>2333
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="right aligned five wide column">
-                                    <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">思想和感悟</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">思想和感悟</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hive</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hadoop YRAN</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">JVM</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="five wide column">
-                        <!--图片-->
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/800/450/?blur" alt="" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-cls">
-                <div class="ui mobile reversed stackable grid">
-                    <div class="eleven wide column">
-                        <h3 class="ui header">Lorem Ipsum... but for photos</h3>
-                        <p class="m-text">最新的4.7.0版，收录了675个图标…如果你觉得本页图标太小...这里来看看。 如果你是名设计师，并且需要在Photoshop或Illustrator等其他桌面应用中使用，请访问 Font Awesome 矢量版</p>
-                        <div class="ui stackable grid">
-                            <div class="row">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?image=1005" alt="" class="ui avatar image">
-                                            <div class="content"><a class="header">毒匠</a></div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calendar icon"></i>2018-06-21
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i>2333
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="right aligned five wide column">
-                                    <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">思想和感悟</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">思想和感悟</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hive</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hadoop YRAN</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">JVM</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="five wide column">
-                        <!--图片-->
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/800/450/?blur" alt="" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-cls">
-                <div class="ui mobile reversed stackable grid">
-                    <div class="eleven wide column">
-                        <h3 class="ui header">Lorem Ipsum... but for photos</h3>
-                        <p class="m-text">最新的4.7.0版，收录了675个图标…如果你觉得本页图标太小...这里来看看。 如果你是名设计师，并且需要在Photoshop或Illustrator等其他桌面应用中使用，请访问 Font Awesome 矢量版</p>
-                        <div class="ui stackable grid">
-                            <div class="row">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?image=1005" alt="" class="ui avatar image">
-                                            <div class="content"><a class="header">毒匠</a></div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calendar icon"></i>2018-06-21
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i>2333
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="right aligned five wide column">
-                                    <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">思想和感悟</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">思想和感悟</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hive</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">Hadoop YRAN</a>
-                                    <a href="#" class="ui blue basic left pointing label m-margin-tb-tiny m-padded-mini m-text-thin">JVM</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="five wide column">
-                        <!--图片-->
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/800/450/?blur" alt="" class="ui rounded image">
+                        <a href="#" th:href="@{/blog/{id}(id=${article.id})}" target="_blank">
+                            <img src="https://picsum.photos/800/450/?blur" alt="" class="ui rounded image" th:src="@{${article.articleCover}}">
                         </a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="ui bottom attached segment">
+        <!--文章列表底部div.ui.bottom.attached.segment-->
+        <div class="ui bottom attached segment" th:if="${page.pages} > 1">
             <!--上下翻页-->
             <div class="ui middle aligned two column grid">
                 <div class="column">
-                    <a href="#" class="ui teal basic button">上一页</a>
+                    <a href="#" class="ui teal basic button" th:href="@{/(page=${page.pageNum}-1)}" th:unless="${page.isFirstPage}">上一页</a>
                 </div>
                 <div class="right aligned column">
-                    <a href="#" class="ui teal button">下一页</a>
+                    <a href="#" class="ui teal basic button" th:href="@{/(page=${page.pageNum}+1)}" th:unless="${page.isLastPage}">下一页</a>
                 </div>
             </div>
         </div>
@@ -418,44 +138,10 @@
 <br>
 <br>
 <!--底部-->
-<footer class="ui inverted vertical segment m-padded-tb-massive">
-    <div class="ui center aligned container">
-        <div class="ui inverted divided stackable grid">
-            <!--分成16份-->
-            <div class="three wide column">
-                <div class="ui inverted link list">
-                    <div class="item">
-                        <img src="../static/images/wechat-qr.jpg" alt="QR-CODE" class="ui rounded image" style="width: 100px">
-                    </div>
-                </div>
-            </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">最新博客11</a>
-                    <a href="#" class="item">最新博客12</a>
-                    <a href="#" class="item">最新博客13</a>
-                </div>
-            </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced">联系我吧</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">邮箱:blackdancers@163.com</a>
-                    <a href="#" class="item">企鹅:245675499</a>
-                </div>
-            </div>
-            <div class="seven wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced">关于自己</h4>
-                <p class="m-text-thin m-text-spaced m-opacity-mini">Semantic UI 用户界面是Web的语言</p>
-            </div>
-        </div>
-        <div class="ui inverted section divider"><!--分割线--></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Semantic UI 用户界面是Web的语言</p>
-    </div>
-</footer>
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive"></footer>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<!--/*/</th:block>/*/-->
 <script>
     /*显示和隐藏菜单*/
     $(".menu.toggle").click(function () {

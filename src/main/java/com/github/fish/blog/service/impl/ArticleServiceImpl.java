@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 
 @Component("articleService")
@@ -61,5 +62,20 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Boolean getArticleByName(String articleName) {
         return articleBiz.getArticleByName(articleName);
+    }
+
+    @Override
+    public PageInfo<Article> getArticlePageByTagId(Article article, Pageable pageable) {
+        return articleBiz.getArticlePageByTagId(article, pageable);
+    }
+
+    @Override
+    public Map<String, List<Article>> getArchiveListByYear() {
+        return articleBiz.getArchiveListByYear();
+    }
+
+    @Override
+    public int getArticleCount() {
+        return articleBiz.getArticleCount();
     }
 }

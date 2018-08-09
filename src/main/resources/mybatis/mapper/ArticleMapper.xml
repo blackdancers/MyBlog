@@ -128,4 +128,58 @@
     FROM article a WHERE a.is_recommend = #{article.isRecommend}  LIMIT #{num}
   </select>
 
+  <select id="getArticlePageByTagId" resultType="com.github.fish.blog.api.entity.Article">
+    SELECT a.id,
+    a.article_name articleName,
+    a.article_cover articleCover,
+    a.article_flag articleFlag,
+    a.views,
+    a.appreciation,
+    a.share_statement shareStatement,
+    a.is_comment isComment,
+    a.is_issue isIssue,
+    a.is_recommend isRecommend,
+    a.article_content articleContent,
+    a.class_id classId,
+    a.article_blurb articleBlurb,
+    a.user_id userId,
+    a.create_date createDate,
+    a.update_date updateDate,
+    su.user_name userName,
+    su.user_avatar userAvatar,
+    cc.class_name className
+    FROM article a
+    LEFT JOIN article_ref_tag art ON art.article_id = a.id
+    LEFT JOIN system_user su ON su.id = a.user_id
+    LEFT JOIN classification cc ON cc.id = a.class_id
+    WHERE art.tag_id = #{article.tagIds}
+    GROUP BY a.id
+  </select>
+  <select id="getArchiveListByYear" resultType="String">
+    SELECT DATE_FORMAT(a.create_date,'%Y') AS year FROM article a GROUP BY year ORDER BY year DESC;
+  </select>
+  <select id="getArticleListByYear" resultType="com.github.fish.blog.api.entity.Article">
+    SELECT a.id,
+    a.article_name articleName,
+    a.article_cover articleCover,
+    a.article_flag articleFlag,
+    a.views,
+    a.appreciation,
+    a.share_statement shareStatement,
+    a.is_comment isComment,
+    a.is_issue isIssue,
+    a.is_recommend isRecommend,
+    a.article_content articleContent,
+    a.class_id classId,
+    a.article_blurb articleBlurb,
+    a.user_id userId,
+    a.create_date createDate,
+    a.update_date updateDate
+    FROM article a
+    WHERE DATE_FORMAT(a.create_date,'%Y') = #{year};
+  </select>
+
+  <select id="getArticleCount" resultType="int">
+    SELECT COUNT(a.id) FROM article a;
+  </select>
 </mapper>

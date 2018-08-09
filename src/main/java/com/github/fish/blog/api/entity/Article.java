@@ -4,6 +4,7 @@ import com.github.fish.common.entity.AbstractBaseEntity;
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 public class Article extends AbstractBaseEntity {
@@ -126,6 +127,17 @@ public class Article extends AbstractBaseEntity {
     @Transient
     private String keyWords;
 
+    /**
+     * 文章包含的标签列表
+     */
+    @Transient
+    private List<Tags> tagsList;
+
+    /**
+     * 总数
+     */
+    @Transient
+    private int count;
 
 
 
@@ -427,5 +439,21 @@ public class Article extends AbstractBaseEntity {
 
     public void setKeyWords(String keyWords) {
         this.keyWords = keyWords;
+    }
+
+    public List<Tags> getTagsList() {
+        return tagsList;
+    }
+
+    public void setTagsList(List<Tags> tagsList) {
+        this.tagsList = tagsList;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
