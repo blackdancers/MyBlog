@@ -20,11 +20,11 @@
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">Blog</h2>
-            <a href="#" th:href="@{/}" class="item m-item m-mobile-hide" th:classappend="${n==1} ? 'active'">       <i class="home icon"></i>首页 </a>
-            <a href="#" th:href="@{/category}" class="item m-item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类 </a>
-            <a href="#" th:href="@{/tag}" class="item m-item m-mobile-hide" th:classappend="${n==3} ? 'active'">   <i class="tags icon"></i>标签 </a>
-            <a href="#" th:href="@{/archive}" class="item m-item m-mobile-hide" th:classappend="${n==4} ? 'active'">   <i class="clone icon"></i>归档</a>
-            <a href="#" th:href="@{/about}" class="item m-item m-mobile-hide" th:classappend="${n==5} ? 'active'">   <i class="info icon"></i>About</a>
+            <a href="#" th:href="@{/}"          class="item m-item m-mobile-hide" th:classappend="${n==1} ? 'active'"> <i class="home icon"></i>首页 </a>
+            <a href="#" th:href="@{/category}"  class="item m-item m-mobile-hide" th:classappend="${n==2} ? 'active'"> <i class="idea icon"></i>分类 </a>
+            <a href="#" th:href="@{/tag}"       class="item m-item m-mobile-hide" th:classappend="${n==3} ? 'active'"> <i class="tags icon"></i>标签 </a>
+            <a href="#" th:href="@{/archive}"   class="item m-item m-mobile-hide" th:classappend="${n==4} ? 'active'"> <i class="clone icon"></i>归档</a>
+            <a href="#" th:href="@{/about}"     class="item m-item m-mobile-hide" th:classappend="${n==5} ? 'active'"> <i class="info icon"></i>About</a>
             <div class="right item m-item m-mobile-hide">
                 <!--div.ui.input-->
                 <form action="#" th:action="@{/search}" target="_blank" method="post" name="search">
@@ -56,10 +56,10 @@
             </div>
             <div class="three wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">最新博客11</a>
-                    <a href="#" class="item">最新博客12</a>
-                    <a href="#" class="item">最新博客13</a>
+                <div id="last-container">
+                    <div class="ui inverted link list" th:fragment="lastArticleList">
+                        <a href="#" class="item" target="_blank" th:href="@{/blog/{id}(id=${article.id})}" th:each="article : ${lastArticleList}" th:text="${article.articleName}">最新文章</a>
+                    </div>
                 </div>
             </div>
             <div class="three wide column">
@@ -93,6 +93,10 @@
         <script src="/static/plugins/qrcodejs/qrcode.min.js" th:src="@{/plugins/qrcodejs/qrcode.min.js}"></script>
         <script src="/static/plugins/waypoints/jquery.waypoints.min.js" th:src="@{/plugins/waypoints/jquery.waypoints.min.js}"></script>
         <script src="/static/plugins/jquery.scrollTo/2.1.2/jquery.scrollTo.min.js" th:src="@{/plugins/jquery.scrollTo/2.1.2/jquery.scrollTo.min.js}"></script>
+        <!--每个页面都有页脚最新博文列表-->
+        <script>
+            $('#last-container').load(/*[[@{/footer/lastArticleList}]]*/"/footer/lastArticleList");
+        </script>
     </th:block>
 </div>
 
