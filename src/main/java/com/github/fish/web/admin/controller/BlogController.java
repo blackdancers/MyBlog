@@ -171,6 +171,18 @@ public class BlogController {
         return "redirect:/admin/blog";
     }
 
+    /**
+     * 最新文章列表
+     */
+    @GetMapping("/footer/lastArticleList")
+    public String lastArticleList(Model model) {
+        Article article = new Article();
+        article.setIsRecommend(IConstInfo.ONE);
+        List<Article> lastArticleList = articleService.getArticleList(article, 3);
+        model.addAttribute("lastArticleList", lastArticleList);
+        return "admin/_fragments :: lastArticleList";
+    }
+
 
 
 }
