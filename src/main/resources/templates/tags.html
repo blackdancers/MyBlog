@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="right aligned five wide column">
-                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${article.className}">分类名称</a>
+                                <a href="#" th:href="@{/category/{id}(id=${article.id})}" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${article.className}">分类名称</a>
                             </div>
                             <div class="row">
                                 <div class="column">

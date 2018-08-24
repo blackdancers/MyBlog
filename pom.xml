@@ -6,7 +6,7 @@
     <groupId>com.github.fish.blog</groupId>
     <artifactId>myblog</artifactId>
     <!--<version>0.0.1-SNAPSHOT</version>-->
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <packaging>jar</packaging>
 
     <name>MyBlog</name>

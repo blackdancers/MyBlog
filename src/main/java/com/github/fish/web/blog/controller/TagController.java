@@ -42,7 +42,7 @@ public class TagController {
 
         model.addAttribute("activeId",tagId);//checked
         model.addAttribute("page",articlePageList);
-        model.addAttribute("tagsList",tagsList); //所属分类
+        model.addAttribute("tagsList",tagsList); //所属标签
         return "tags";
     }
     @GetMapping("/tag/{id}")
@@ -61,7 +61,7 @@ public class TagController {
 
         model.addAttribute("activeId",id);//checked
         model.addAttribute("page",articlePageList);
-        model.addAttribute("tagsList",tagsList); //所属分类
+        model.addAttribute("tagsList",tagsList); //所属标签
         return "tags";
     }
 }
