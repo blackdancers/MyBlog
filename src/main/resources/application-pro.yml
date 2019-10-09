@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/myblog?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;failOverReadOnly=false
+    url: jdbc:mysql://mysql:3306/myblog?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;failOverReadOnly=false
     username: root
     password: fbmgr@#
     type: com.alibaba.druid.pool.DruidDataSource
